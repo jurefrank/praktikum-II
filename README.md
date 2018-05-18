@@ -1,7 +1,7 @@
 # praktikum-II
 
 ## Introduction
-	We are small group of IT engineers, which wanted to solve a problem with management of record processing. With new
+	We are small group of IT engineers, which wanted to solve a problem with management of record processing data. With new
 	 law about saving and processing user data. We had to make some changes how we manage User data.
 		
 	

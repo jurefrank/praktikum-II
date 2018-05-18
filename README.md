@@ -2,12 +2,12 @@
 
 ## Introduction
 	We are small group of IT engineers, which wanted to solve a problem with management of record processing. With new
-	 law about saving and processing user data. We had to make some changes how we manage **User data**.
+	 law about saving and processing user data. We had to make some changes how we manage User data.
 		
 	
 
 ## Problem Statement
-	**New European law** includes how affected companies, websites and governments must process and manage  **User data**.
+	New European law includes how affected companies, websites and governments must process and manage  User data.
 	
 
 ## Product Position Statement
@@ -29,7 +29,7 @@
 			
 ## Need and Features
 		
-			| Need           | Priority |       Features         | Planned Release | 
+			| Need           | Priority |       Features          | Planned Release | 
 			| ---------------|--------- |-------------------------|-----------------|
 			| Record keeping |  High    |  Enabled record keeping | At the begging  | 
 		

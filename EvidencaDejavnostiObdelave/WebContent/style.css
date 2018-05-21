@@ -40,6 +40,7 @@ h1 {
 }
 
 input[type="text"],
+input[type="date"],
 input[type="password"] {
   display: block;
   box-sizing: border-box;
@@ -56,6 +57,7 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
+input[type="date"]:focus,
 input[type="password"]:focus {
   border-bottom: 2px solid #16a085;
   color: #16a085;

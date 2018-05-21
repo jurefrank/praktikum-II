@@ -2,32 +2,49 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
->
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 
 <title>Record form</title>
-<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="style.css" />
 
 </head>
 <body>
 	<div align="center">
 		<h:form>
-			<h:inputText   p:placeholder="Name of Manager"/>
-			<h:inputText   p:placeholder="Email"/>
-			<h:inputText   p:placeholder="phoneNumber"/>
-			<h:inputText  p:placeholder="processing Purpose"/>
+			<h:inputText value="#{evidenceBean.newEvidence.nameManager}"
+				p:placeholder="Name of Manager" />
+			<h:inputText value="#{evidenceBean.newEvidence.emailManager}"
+				p:placeholder="Email" />
+			<h:inputText value="#{evidenceBean.newEvidence.phoneNumberManager}"
+				p:placeholder="Phone Number" />
+			<h:inputText value="#{evidenceBean.newEvidence.processingPurpose}"
+				p:placeholder="Processing Purpose" />
 			<!-- checkboxes? -->
-			<h:inputText   p:placeholder="Description Category"/>
-			<h:inputText   p:placeholder="Categories"/>
+			<h:inputText
+				value="#{evidenceBean.newEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"
+				p:placeholder="Description Category" />
+			<h:inputText
+				value="#{evidenceBean.newEvidence.categoriesOfUsersWhomPersonalDataDisclosed}"
+				p:placeholder="Categories" />
 			<!-- textarea info, why, so on -->
-			<h:inputText   p:placeholder="Information "/>
+			<h:inputText
+				value="#{evidenceBean.newEvidence.informationOnTransfersOfPersonalData}"
+				p:placeholder="Information " />
 			<!-- date of expiration -->
-			<h:inputText   p:placeholder="expirationDate"/>
-			<h:inputText   p:placeholder="General description"/>
-			<h:inputText   p:placeholder="Name of Manager"/>
-			
+			<input type="date"
+				jsf:value="#{evidenceBean.newEvidence.dataDeletionDate.time}"
+				p:placeholder="ExpirationDate">
+			<f:convertDateTime pattern="yyyy-MM-dd"></f:convertDateTime>
+			</input>
+			<h:inputText
+				value="#{evidenceBean.newEvidence.generalDescriptionOfTechnicalSecurityMeasures}"
+				p:placeholder="General Description" />
+			<h:commandButton value="Shrani"
+				actionListener="#{evidenceBean.addEvidence}"></h:commandButton>
+
 
 
 		</h:form>

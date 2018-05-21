@@ -1,8 +1,10 @@
 package si.um.feri.praktikum.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-public class Evidence {
+public class Evidence implements Serializable {
 	// MANAGER
 	private String nameManager;
 	private String emailManager;
@@ -13,7 +15,7 @@ public class Evidence {
 	private String descriptionCategoriesOfDataSubjectsTypesOfPersonalData;
 	private String categoriesOfUsersWhomPersonalDataDisclosed;
 	private String informationOnTransfersOfPersonalData;
-	private Calendar dataDeletionDate;
+	private Calendar dataDeletionDate = new GregorianCalendar();
 	private String generalDescriptionOfTechnicalSecurityMeasures;
 
 	// DATE LAST SAVED

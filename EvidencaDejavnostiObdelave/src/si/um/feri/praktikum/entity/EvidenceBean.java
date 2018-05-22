@@ -14,7 +14,7 @@ import si.um.feri.praktikum.blockchain.BlockStorage;
 public class EvidenceBean {
 
 	private Evidence newEvidence = new Evidence();
-	public static final int difficulty = 0;
+	public static final int difficulty = 5;
 
 	public void addEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();

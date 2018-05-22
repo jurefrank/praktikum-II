@@ -1,32 +1,43 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <head>
-<meta charset="UTF-8"> </meta>
+<meta charset="UTF-8"></meta>
 <title>Welcome Page</title>
-<link rel="stylesheet" href="style.css"> </link>
+<link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
- <script src="fblogin.js"></script> 
-  <div id="login-box">
-  <div class="left">
-    <h1>Sign up</h1>
-    
-    <input type="text" name="firstname" placeholder="First Name" />
-     <input type="text" name="lastname" placeholder="Last Name" />
-    <input type="text" name="email" placeholder="E-mail" />
-	<input type="text" name="telephone" placeholder="Mobile number"/>
-    <input type="password" name="password" placeholder="Password" />
-    <input type="password" name="password2" placeholder="Retype password" />
-    
-    <input type="submit" name="signup_submit" value="Sign me up" />
-  </div>
-  
-  <div class="right">
-    <span class="loginwith">Sign in with<br />social network</span>
-    <div class="fb-login-button" data-width="20" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div><br></br>
-   	<button class="social-signin twitter">Log in with Twitter</button>
-    <button class="social-signin google">Log in with Google+</button>
-  </div>
-  <div class="or">OR</div>
-</div>
+	<script src="fblogin.js"></script>
+	<div id="login-box">
+		<div class="left">
+			<h1>Sign up</h1>
+
+			<input type="text" name="firstname" placeholder="First Name" /> <input
+				type="text" name="lastname" placeholder="Last Name" /> <input
+				type="text" name="email" placeholder="E-mail" /> <input type="text"
+				name="telephone" placeholder="Mobile number" /> <input
+				type="password" name="password" placeholder="Password" /> <input
+				type="password" name="password2" placeholder="Retype password" /> <input
+				type="submit" name="signup_submit" value="Sign me up" />
+		</div>
+
+		<div class="right">
+			<span class="loginwith">Sign in with<br />social network
+			</span>
+			<h:form id="loginform" styleClass="form-horizontal">
+				<h:panelGrid columns="2" rendered="#{empty fBConnect.profile}">
+						<div style="margin-top: 10px" class="form-group">
+						<h:commandLink action="#{fBConnect.connect()}"
+							class="social-signin facebook" value="Login with Facebook"
+							rendered="#{empty fBConnect.profile}" />
+						<h:commandLink />
+					</div>
+				</h:panelGrid>
+			</h:form>
+			<button class="social-signin twitter">Log in with Twitter</button>
+			<button class="social-signin google">Log in with Google+</button>
+		</div>
+		<div class="or">OR</div>
+	</div>
 </body>
 </html>

@@ -14,7 +14,7 @@ import si.um.feri.praktikum.blockchain.BlockStorage;
 public class EvidenceBean {
 
 	private Evidence newEvidence = new Evidence();
-	public static final int difficulty = 5;
+	public static final int difficulty = 0;
 
 	public void addEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
@@ -35,11 +35,13 @@ public class EvidenceBean {
 
 			if (!current.getHash().equals(current.calculateHash())) {
 				System.out.println("Current hashes not equal!");
+				System.out.println("Current stored: " + current.getHash() + "; Current calculated: " + current.calculateHash());
 				return false;
 			}
 
 			if (!previous.getHash().equals(previous.calculateHash())) {
 				System.out.println("Previous hashes not equal");
+				System.out.println("Previous stored: " + previous.getHash() + "; Previous calculated: " + previous.calculateHash());
 				return false;
 			}
 

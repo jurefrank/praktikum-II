@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import com.google.gson.Gson;
+
 public class Evidence implements Serializable {
 	// MANAGER
 	private String nameManager;
@@ -122,6 +124,14 @@ public class Evidence implements Serializable {
 
 	public void setLastSaved(Calendar lastSaved) {
 		this.lastSaved = lastSaved;
+	}
+
+	// To String
+	@Override
+	public String toString() {
+		return nameManager + ";" + emailManager + ";" + phoneNumberManager + ";" + processingPurpose + ";"
+				+ descriptionCategoriesOfDataSubjectsTypesOfPersonalData + ";"
+				+ categoriesOfUsersWhomPersonalDataDisclosed + ";" + informationOnTransfersOfPersonalData;
 	}
 
 }

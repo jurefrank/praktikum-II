@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 import si.um.feri.praktikum.entity.Evidence;
 
-public class Block implements Serializable{
+public class Block implements Serializable {
 
 	private String hash;
 	private String previousHash;
@@ -22,7 +22,8 @@ public class Block implements Serializable{
 	}
 
 	public String calculateHash() {
-		String calculatedHash = StringUtil.hashSHA256(previousHash + timeStamp + Integer.toString(nonce) + data);
+		String calculatedHash = StringUtil
+				.hashSHA256(previousHash + timeStamp.getTime().getTime() + Integer.toString(nonce) + data.toString());
 		return calculatedHash;
 	}
 
@@ -50,6 +51,5 @@ public class Block implements Serializable{
 	public Calendar getTimeStamp() {
 		return timeStamp;
 	}
-	
 
 }

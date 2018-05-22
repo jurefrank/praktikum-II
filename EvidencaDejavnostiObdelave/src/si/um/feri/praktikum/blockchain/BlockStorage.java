@@ -43,7 +43,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 		try {
 			@SuppressWarnings("resource")
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(blockchainFile));
-			oos.writeObject(BlockStorage.INSTANCE.blockchain);
+			oos.writeObject(BlockStorage.getInstance().blockchain);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,6 +69,8 @@ public class BlockStorage implements Serializable, ServletContextListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (!blockchainFile.exists()) {
+			BlockStorage.getInstance().blockchain.add(new Block("0", new Evidence()));
 		}
 
 	}

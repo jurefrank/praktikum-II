@@ -1,5 +1,6 @@
 package si.um.feri.praktikum.facebook;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Properties;
@@ -16,51 +17,37 @@ import org.brickred.socialauth.SocialAuthConfig;
 import org.brickred.socialauth.SocialAuthManager;
 import org.brickred.socialauth.util.SocialAuthUtil;
 
-@Named
+@Named(value = "userSession")
 @SessionScoped
 public class FBConnect implements Serializable {
-
-
-	private static final long serialVersionUID = 3658300628580536494L;
-	
-	private SocialAuthManager socialManager;
-	private Profile profile;
-
-	private final String mainURL = "https://localhost:8080/EvidencaDejavnostiObdelave/faces/welcomePage.xhtml";
-	private final String redirectURL = "https://localhost:8080/EvidencaDejavnostiObdelave/faces/recordForm.xhtml";
-	private final String provider = "facebook";
-
-	public void connect() {
-		Properties prop = System.getProperties();
-		prop.put("graph.facebook.com.consumer_key", "532157647181482");
-		prop.put("graph.facebook.com.consumer_secret", "d6a34a5ad123804ca13477912ff62d72");
-		prop.put("graph.facebook.com.custom_permissions", "public_profile,email");
-
-		SocialAuthConfig socialConfig = SocialAuthConfig.getDefault();
-		try {
-			socialConfig.load(prop);
-			socialManager = new SocialAuthManager();
-			socialManager.setSocialAuthConfig(socialConfig);
-			String URLRetorno = socialManager.getAuthenticationUrl(provider, redirectURL);
-			FacesContext.getCurrentInstance().getExternalContext().redirect(URLRetorno);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    private SocialAuthManager manager;
+    private String            originalURL;
+    private String            providerID;
+    private Profile           profile;
+    
+    
+    public SocialAuthManager getManager() {
+		return manager;
 	}
 
-	public void getPerfilUsuario() throws Exception {
-		ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) ex.getRequest();
+	public void setManager(SocialAuthManager manager) {
+		this.manager = manager;
+	}
 
-		Map<String, String> parametros = SocialAuthUtil.getRequestParametersMap(request);
+	public String getOriginalURL() {
+		return originalURL;
+	}
 
-		if (socialManager != null) {
-			AuthProvider provider = socialManager.connect(parametros);
-			this.setProfile(provider.getUserProfile());
+	public void setOriginalURL(String originalURL) {
+		this.originalURL = originalURL;
+	}
 
-		}
+	public String getProviderID() {
+		return providerID;
+	}
 
-		FacesContext.getCurrentInstance().getExternalContext().redirect(mainURL);
+	public void setProviderID(String providerID) {
+		this.providerID = providerID;
 	}
 
 	public Profile getProfile() {
@@ -71,4 +58,67 @@ public class FBConnect implements Serializable {
 		this.profile = profile;
 	}
 
+	public void socialConnect() throws Exception {
+        // Put your keys and secrets from the providers here 
+        Properties props = System.getProperties();
+        props.put("graph.facebook.com.consumer_key", "532157647181482");
+        props.put("graph.facebook.com.consumer_secret", "d6a34a5ad123804ca13477912ff62d72");
+        // Define your custom permission if needed
+        props.put("graph.facebook.com.custom_permissions", "public_profile,email,user_birthday");
+        
+        // Initiate required components
+        SocialAuthConfig config = SocialAuthConfig.getDefault();
+        try {
+        config.load(props);
+        manager = new SocialAuthManager();
+        manager.setSocialAuthConfig(config);
+        
+        // 'successURL' is the page you'll be redirected to on successful login
+        ExternalContext externalContext   = FacesContext.getCurrentInstance().getExternalContext();
+        String          successURL        = "https://localhost:8080"+externalContext.getRequestContextPath() +"/faces/socialLoginSuccess.xhtml"; 
+        String          authenticationURL = manager.getAuthenticationUrl(providerID, successURL);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(authenticationURL);
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void pullUserInfo() {
+        try {
+            // Pull user's data from the provider
+            ExternalContext    externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            HttpServletRequest request         = (HttpServletRequest) externalContext.getRequest();
+            Map                map             = SocialAuthUtil.getRequestParametersMap(request);
+            if (this.manager != null) {
+                AuthProvider provider = manager.connect(map);
+                this.setProfile(provider.getUserProfile());
+            
+                // Do what you want with the data (e.g. persist to the database, etc.)
+                System.out.println("User's Social profile: " + profile);
+            
+                // Redirect the user back to where they have been before logging in
+                FacesContext.getCurrentInstance().getExternalContext().redirect(originalURL);
+            
+            } //else FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/faces/welcomePage.xhtml");
+        } catch (Exception ex) {
+            System.out.println("UserSession - Exception: " + ex.toString());
+        } 
+    }
+    
+    public void logOut() {
+        try {
+            // Disconnect from the provider
+            manager.disconnectProvider(providerID);
+            
+            // Invalidate session
+            ExternalContext    externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            HttpServletRequest request         = (HttpServletRequest) externalContext.getRequest();
+            //this.invalidateSession(request);
+            
+            // Redirect to home page
+            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "home.xhtml");
+        } catch (IOException ex) {
+            System.out.println("UserSessionBean - IOException: " + ex.toString());
+        }
+    }
 }

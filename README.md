@@ -38,7 +38,7 @@
 			
 		
 ## Other Product Requirements
-	Standard Java VM, Inthernet, atleast 3gb Ram for running on windows.
+	Standard Java VM, Internet access, atleast 3gb Ram for running on windows.
 			
 			
 

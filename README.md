@@ -45,3 +45,10 @@
 ## Product future
 	We planning to expand to android, iOS.
 			
+
+
+## Authors
+*[jurefrank](https://github.com/jurefrank)
+*[FilipKren96](https://github.com/FilipKren96)
+*[KevinZiher](https://github.com/KevinZiher)
+*[BokeyL](https://github.com/BokayL)

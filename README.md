@@ -38,10 +38,17 @@
 			
 		
 ## Other Product Requirements
-	Standard Java VM, Inthernet, atleast 3gb Ram for running on windows.
+	Standard Java VM, Internet access, atleast 3gb Ram for running on windows.
 			
 			
 
 ## Product future
 	We planning to expand to android, iOS.
 			
+
+
+## Authors
+* [jurefrank](https://github.com/jurefrank)
+* [FilipKren96](https://github.com/FilipKren96)
+* [KevinZiher](https://github.com/KevinZiher)
+* [BokayL](https://github.com/BokayL)

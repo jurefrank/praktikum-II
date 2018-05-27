@@ -1,8 +1,13 @@
 package si.um.feri.praktikum.blockchain;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.util.Base64;
 
 public class StringUtil {
 	public static String hashSHA256(String input) {
@@ -22,5 +27,35 @@ public class StringUtil {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static byte[] applyDSASig(PrivateKey privateKey, String input) {
+		Signature dsa;
+		byte[] output = new byte[0];
+		try {
+			dsa = Signature.getInstance("DSA", "SUN");
+			dsa.initSign(privateKey);
+			byte[] strByte = input.getBytes();
+			dsa.update(strByte);
+			output = dsa.sign();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
+
+	public static boolean verifyDSASig(PublicKey publicKey, String data, byte[] signature) {
+		try {
+			Signature dsaVerify = Signature.getInstance("DSA", "SUN");
+			dsaVerify.initVerify(publicKey);
+			dsaVerify.update(data.getBytes());
+			return dsaVerify.verify(signature);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static String getStringFromKey(Key key) {
+		return Base64.getEncoder().encodeToString(key.getEncoded());
 	}
 }

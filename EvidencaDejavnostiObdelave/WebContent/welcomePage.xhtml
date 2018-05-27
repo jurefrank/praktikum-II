@@ -38,18 +38,31 @@
 		<div class="right">
 			<span class="loginwith">Sign in with<br />social network
 			</span>
-			<h:form id="loginform" styleClass="form-horizontal">
-				<h:panelGrid columns="2" rendered="#{empty fBConnect.profile}">
-						<div style="margin-top: 10px" class="form-group">
-						<h:commandLink action="#{fBConnect.connect()}"
-							class="social-signin facebook" value="Login with Facebook"
-							rendered="#{empty fBConnect.profile}" />
-						<h:commandLink />
-					</div>
-				</h:panelGrid>
-			</h:form>
 			<button class="social-signin twitter">Log in with Twitter</button>
 			<button class="social-signin google">Log in with Google+</button>
+			<h:form>
+				<h:panelGroup rendered="#{empty userSession.profile}"
+					id="socialButtons">
+					<h:commandLink id="facebook" action="#{userSession.socialConnect}">
+						<f:setPropertyActionListener target="#{userSession.providerID}"
+							value="facebook" />
+						<h:graphicImage value="https://i.stack.imgur.com/ZW4QC.png" />
+					</h:commandLink>
+				</h:panelGroup>
+
+				<h:panelGrid columns="3" rendered="#{not empty userSession.profile}">
+					<h:graphicImage
+						rendered="#{not empty userSession.profile.profileImageURL}"
+						value="#{userSession.profile.profileImageURL}" />
+
+					<h:outputText value="Hello, #{userSession.profile.fullName}" />
+
+					<h:commandButton value="Log out"
+						actionListener="#{userSession.logOut}" />
+				</h:panelGrid>
+			</h:form>
+			<h:outputText style="display:none;"
+				value="#{userSession.pullUserInfo()}" />
 		</div>
 		<div class="or">OR</div>
 	</div>

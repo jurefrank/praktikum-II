@@ -48,7 +48,7 @@
 
 
 ## Authors
-*[jurefrank](https://github.com/jurefrank)
-*[FilipKren96](https://github.com/FilipKren96)
-*[KevinZiher](https://github.com/KevinZiher)
-*[BokeyL](https://github.com/BokayL)
+* [jurefrank](https://github.com/jurefrank)
+* [FilipKren96](https://github.com/FilipKren96)
+* [KevinZiher](https://github.com/KevinZiher)
+* [BokayL](https://github.com/BokayL)

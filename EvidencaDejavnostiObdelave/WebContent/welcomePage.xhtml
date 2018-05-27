@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <head>
 <meta charset="UTF-8"></meta>
 <title>Welcome Page</title>
@@ -11,14 +12,27 @@
 	<div id="login-box">
 		<div class="left">
 			<h1>Sign up</h1>
-
-			<input type="text" name="firstname" placeholder="First Name" /> <input
-				type="text" name="lastname" placeholder="Last Name" /> <input
-				type="text" name="email" placeholder="E-mail" /> <input type="text"
-				name="telephone" placeholder="Mobile number" /> <input
-				type="password" name="password" placeholder="Password" /> <input
-				type="password" name="password2" placeholder="Retype password" /> <input
-				type="submit" name="signup_submit" value="Sign me up" />
+				<h:form>
+				
+					<h:inputText type="text" value ="#{registrationControler.newUser.firstName}" a:placeholder="First Name" /> 
+					<h:inputText  type="text" value="#{registrationControler.newUser.lastName}"	 a:placeholder="Last Name" /> 
+				
+					<h:inputText type="text" value="#{registrationControler.newUser.email}"	 a:placeholder="E-mail" /> 
+				
+					<h:inputText type="text" value="#{registrationControler.newUser.mobileNumber}" a:placeholder="Mobile number" /> 
+				
+					<h:inputSecret id="password" binding="#{passwordComponent}"  value="#{registrationControler.newUser.password}" required="true" a:placeholder="Password" />
+						<h:message for="password" /> 
+				
+				
+					<h:inputSecret id="confirm" required="#{not empty password.value}"  a:placeholder="Retype password">
+						<f:validator validatorId="confirmPasswordValidator"/>
+						<f:attribute name="passwordComponent" value="#{passwordComponent}"/> 
+						</h:inputSecret>
+						<h:message for="confirm" />
+				
+					<h:commandButton type="submit"  value="Sign up" action="#{registrationControler.saveUser()}" />
+				</h:form>
 		</div>
 
 		<div class="right">

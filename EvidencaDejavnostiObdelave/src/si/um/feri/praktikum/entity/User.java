@@ -1,5 +1,9 @@
 package si.um.feri.praktikum.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 	
 	
@@ -8,6 +12,8 @@ public class User {
 	private String lastName;
 	private int mobileNumber;
 	private String email;
+	private int id;
+	
 	
 	
 	public User() 	{
@@ -22,6 +28,15 @@ public class User {
 		
 		
 	}
+	@Id
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public String getFirstName() {
 		return firstName;

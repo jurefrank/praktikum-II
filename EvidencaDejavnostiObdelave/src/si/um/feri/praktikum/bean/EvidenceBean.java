@@ -1,4 +1,4 @@
-package si.um.feri.praktikum.entity;
+package si.um.feri.praktikum.bean;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 
 import si.um.feri.praktikum.blockchain.Block;
 import si.um.feri.praktikum.blockchain.BlockStorage;
+import si.um.feri.praktikum.entity.Evidence;
 
 @SuppressWarnings("deprecation")
 @ManagedBean

@@ -1,6 +1,7 @@
 package si.um.feri.praktikum.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -13,6 +14,7 @@ public class User {
 	private int mobileNumber;
 	private String email;
 	private int id;
+	private String password;
 	
 	
 	
@@ -20,15 +22,17 @@ public class User {
 		
 	}
 	
-	public User(String firstName, String lastName,int mobileNum, String email) {
+	public User(String firstName, String lastName,int mobileNumber, String email,String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.mobileNumber = mobileNum;
+		this.mobileNumber = mobileNumber;
 		this.email = email;
+		this.password = password;
 		
 		
 	}
 	@Id
+	@GeneratedValue
 	public int getId() {
 		return id;
 	}
@@ -68,6 +72,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 

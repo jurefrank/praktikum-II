@@ -21,7 +21,6 @@ public class User {
 	private int mobileNumber;
 	private String email;
 	private int id;
-<<<<<<< HEAD
 	private String password;
 	
 	
@@ -30,31 +29,24 @@ public class User {
 		
 	}
 	
-	public User(String firstName, String lastName,int mobileNumber, String email,String password) {
-=======
+	
 
 	// Private and public key so user can sign evidences to know which evidence
 	// belong to which user
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
 
-	public User() {
+	
 
-	}
-
-	public User(String firstName, String lastName, int mobileNum, String email) {
->>>>>>> 85e8f3934aec2d2a5491a13eb474fc075b3093b4
+	public User(String firstName, String lastName, int mobileNum, String email, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.email = email;
-<<<<<<< HEAD
 		this.password = password;
 		
 		
-=======
 
->>>>>>> 85e8f3934aec2d2a5491a13eb474fc075b3093b4
 	}
 
 	@Id
@@ -99,7 +91,7 @@ public class User {
 		this.email = email;
 	}
 
-<<<<<<< HEAD
+
 	public String getPassword() {
 		return password;
 	}
@@ -108,7 +100,7 @@ public class User {
 		this.password = password;
 	}
 	
-=======
+
 	public void generateKeyPair() {
 		try {
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
@@ -121,6 +113,6 @@ public class User {
 			e.printStackTrace();
 		}
 	}
->>>>>>> 85e8f3934aec2d2a5491a13eb474fc075b3093b4
+
 
 }

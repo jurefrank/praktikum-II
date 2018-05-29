@@ -6,10 +6,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
+
+
 public class User {
 
 	// USER THAT WILL USER OUR PORTAL
@@ -38,7 +37,7 @@ public class User {
 		generateKeyPair();
 	}
 
-	@Id
+
 	public int getId() {
 		return id;
 	}

@@ -4,31 +4,66 @@ package si.um.feri.praktikum.connection;
 
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 
 
-import javax.annotation.PostConstruct;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Singleton;
 
 
-@Singleton
-@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+
+
+
 public class MongoClientProvider {
 
-private MongoClient mongoClient = null;
+	private static MongoClientProvider instance  = new MongoClientProvider();
 
-@Lock(LockType.READ)
-public MongoClient getMongoClient(){
-return mongoClient;
+
+	//singleton for creating mongodb connection
+	private MongoClientProvider() {}
+
+	private MongoClient mongo = null;
+	
+	
+	//morphia???
+	
+	public MongoClient getMongo() {
+		if(mongo==null) {
+			MongoClientOptions.Builder options = MongoClientOptions.builder()
+					.connectionsPerHost(3).
+					maxConnectionIdleTime((60 * 1_000))
+					.maxConnectionLifeTime((120 * 1_000));
+		}
+		String serverName = "localhost";
+		int serverPort = 27017;
+		
+		try {
+			mongo = new MongoClient(serverName,serverPort);
+		}catch(Exception e) {
+			
+		}
+	
+
+	return mongo;
 }
+	
+	
+	
+	public void close() {
+		if (mongo != null) {
+			try {
+				mongo.close();
+				mongo = null;
+			}catch(Exception e) {
+				
+			}
+		
+	}
 
-@PostConstruct
-public void init() {
 
-mongoClient = new MongoClient("localhost", 27017);
+
 }
+	public static MongoClientProvider getInstance() {
+		return instance;
+	}
 
-}	
+}

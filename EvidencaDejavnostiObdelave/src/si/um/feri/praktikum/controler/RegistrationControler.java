@@ -6,10 +6,12 @@ import javax.faces.bean.SessionScoped;
 
 import org.bson.Document;
 
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
 
 import si.um.feri.praktikum.connection.MongoClientProvider;
 import si.um.feri.praktikum.entity.User;
@@ -33,22 +35,30 @@ public class RegistrationControler {
 		
 		
 		public String registerUser() {
+			
 			BasicDBObject document = new BasicDBObject("user", newUser);
+			
+			String jsonString = document.toJson();
+			
+			System.out.println("REGCON: " + jsonString);
+			
+			BasicDBObject add = BasicDBObject.parse(jsonString);
+			MongoDatabase db = mongoClient.getDatabase(database);
+			MongoCollection<Document> collection = db.getCollection("users");
+			
+			
 			try {
-				MongoDatabase db = mongoClient.getDatabase(database);
+				System.out.println("try: " + add);
+				collection.insertOne(new Document(add));
+				
+				
 				
 			}finally {
-				
+				mongoClient.close();
 				
 			}
 			
-			
-			
-			
-			
-			
-			
-			
+		
 			return "login.xhtml";
 		}
 

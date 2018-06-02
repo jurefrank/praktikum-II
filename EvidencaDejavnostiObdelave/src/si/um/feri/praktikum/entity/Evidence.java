@@ -3,6 +3,7 @@ package si.um.feri.praktikum.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 
@@ -11,6 +12,7 @@ public class Evidence implements Serializable {
 	private String nameManager;
 	private String emailManager;
 	private String phoneNumberManager;
+	private User user;
 
 	// PROCESSING
 	private String processingPurpose;
@@ -23,9 +25,12 @@ public class Evidence implements Serializable {
 	// DATE LAST SAVED
 	private Calendar lastSaved;
 
+	// PRIMARY KEY
+	private UUID primaryKey;
+
 	// CONSTRUCTORS
 	public Evidence() {
-
+		this("", "", "", "", "", "", "", null, "", Calendar.getInstance());
 	}
 
 	public Evidence(String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
@@ -42,6 +47,7 @@ public class Evidence implements Serializable {
 		this.dataDeletionDate = dataDeletionDate;
 		this.generalDescriptionOfTechnicalSecurityMeasures = generalDescriptionOfTechnicalSecurityMeasures;
 		this.lastSaved = lastSaved;
+		this.primaryKey = UUID.fromString(toString());
 	}
 
 	// GETTERS AND SETTERS
@@ -124,6 +130,22 @@ public class Evidence implements Serializable {
 
 	public void setLastSaved(Calendar lastSaved) {
 		this.lastSaved = lastSaved;
+	}
+	
+	public UUID getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(UUID primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	// To String

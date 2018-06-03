@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import com.google.gson.Gson;
 
+import si.um.feri.praktikum.blockchain.BlockChainUtil;
+
 public class Evidence implements Serializable {
 	// MANAGER
 	private String nameManager;
@@ -22,21 +24,26 @@ public class Evidence implements Serializable {
 	private Calendar dataDeletionDate = new GregorianCalendar();
 	private String generalDescriptionOfTechnicalSecurityMeasures;
 
-	// DATE LAST SAVED
+	// DATE LAST SAVED AND VERSION
 	private Calendar lastSaved;
-
+	private int version;
 	// PRIMARY KEY
 	private UUID primaryKey;
 
 	// CONSTRUCTORS
 	public Evidence() {
-		this("", "", "", "", "", "", "", null, "", Calendar.getInstance());
+		this("", "", "", "", "", "", "", null, "", Calendar.getInstance(), null);
+	}
+
+	public Evidence(UUID primaryKey) {
+		this("", "", "", "", "", "", "", null, "", Calendar.getInstance(), primaryKey);
 	}
 
 	public Evidence(String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
 			String descriptionCategoriesOfDataSubjectsTypesOfPersonalData,
 			String categoriesOfUsersWhomPersonalDataDisclosed, String informationOnTransfersOfPersonalData,
-			Calendar dataDeletionDate, String generalDescriptionOfTechnicalSecurityMeasures, Calendar lastSaved) {
+			Calendar dataDeletionDate, String generalDescriptionOfTechnicalSecurityMeasures, Calendar lastSaved,
+			UUID primaryKey) {
 		this.nameManager = nameManager;
 		this.emailManager = emailManager;
 		this.phoneNumberManager = phoneNumberManager;
@@ -47,7 +54,13 @@ public class Evidence implements Serializable {
 		this.dataDeletionDate = dataDeletionDate;
 		this.generalDescriptionOfTechnicalSecurityMeasures = generalDescriptionOfTechnicalSecurityMeasures;
 		this.lastSaved = lastSaved;
-		this.primaryKey = UUID.fromString(toString());
+		this.primaryKey = primaryKey == null ? UUID.fromString(toString()) : primaryKey;
+		this.version = BlockChainUtil.getEvidence(this.primaryKey) == null ? 1
+				: increase(BlockChainUtil.getEvidence(this.primaryKey).getVersion());
+	}
+
+	private int increase(int version) {
+		return version++;
 	}
 
 	// GETTERS AND SETTERS
@@ -131,7 +144,7 @@ public class Evidence implements Serializable {
 	public void setLastSaved(Calendar lastSaved) {
 		this.lastSaved = lastSaved;
 	}
-	
+
 	public UUID getPrimaryKey() {
 		return primaryKey;
 	}
@@ -146,6 +159,14 @@ public class Evidence implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	// To String

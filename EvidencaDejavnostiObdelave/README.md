@@ -1,2 +1,0 @@
-# praktikum-II
-test commit

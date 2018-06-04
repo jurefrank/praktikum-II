@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+H:\Feri\2. Letnik\PraktikumII\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2629640993.index
-3459164134.index
-2731195768.index
-4213218816.index
-1673263293.index
-2108015984.index

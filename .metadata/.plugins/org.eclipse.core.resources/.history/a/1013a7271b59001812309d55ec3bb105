@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="EvidencaDejavnostiObdelave">
-        <property name="context-root" value="EvidencaDejavnostiObdelave"/>
-        <property name="java-output-path" value="/EvidencaDejavnostiObdelave/build/classes"/>
-    </wb-module>
-</project-modules>

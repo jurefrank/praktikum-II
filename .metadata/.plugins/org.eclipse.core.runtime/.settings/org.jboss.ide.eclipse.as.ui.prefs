@@ -1,8 +1,0 @@
-eclipse.preferences.version=1
-org.jboss.ide.eclipse.as.ui.preferences.disabled.automatic.server.view=true
-org.jboss.ide.eclipse.as.ui.preferences.enabledDecorators.1=true
-org.jboss.ide.eclipse.as.ui.preferences.runtime.last.type.org.jboss.ide.eclipse.as.runtime.wildfly.110=H\:\\Feri\\2. Letnik\\PraktikumII\\wildfly-12.0.0.Final
-org.jboss.ide.eclipse.as.ui.wizards.LAST_RUNTIME_CREATED=WildFly 11.0 Runtime 1
-org.jboss.ide.eclipse.as.ui.wizards.LAST_RUNTIME_TYPE_CREATED=org.jboss.ide.eclipse.as.runtime.wildfly.110
-org.jboss.ide.eclipse.as.ui.wizards.LAST_SERVER_CREATED=WildFly 111526483437708
-org.jboss.ide.eclipse.as.ui.wizards.LAST_SERVER_TYPE_CREATED=org.jboss.ide.eclipse.as.wildfly.110

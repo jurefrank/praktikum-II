@@ -21,7 +21,7 @@ public class Evidence implements Serializable {
 	private String descriptionCategoriesOfDataSubjectsTypesOfPersonalData;
 	private String categoriesOfUsersWhomPersonalDataDisclosed;
 	private String informationOnTransfersOfPersonalData;
-	private Calendar dataDeletionDate = new GregorianCalendar();
+	private Calendar dataDeletionDate;
 	private String generalDescriptionOfTechnicalSecurityMeasures;
 
 	// DATE LAST SAVED AND VERSION
@@ -32,11 +32,11 @@ public class Evidence implements Serializable {
 
 	// CONSTRUCTORS
 	public Evidence() {
-		this("", "", "", "", "", "", "", null, "", Calendar.getInstance(), null);
+		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), null);
 	}
 
 	public Evidence(UUID primaryKey) {
-		this("", "", "", "", "", "", "", null, "", Calendar.getInstance(), primaryKey);
+		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), primaryKey);
 	}
 
 	public Evidence(String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
@@ -54,13 +54,19 @@ public class Evidence implements Serializable {
 		this.dataDeletionDate = dataDeletionDate;
 		this.generalDescriptionOfTechnicalSecurityMeasures = generalDescriptionOfTechnicalSecurityMeasures;
 		this.lastSaved = lastSaved;
-		this.primaryKey = primaryKey == null ? UUID.fromString(toString()) : primaryKey;
+		this.primaryKey = primaryKey == null ? UUID.randomUUID() : primaryKey;
 		this.version = BlockChainUtil.getEvidence(this.primaryKey) == null ? 1
 				: increase(BlockChainUtil.getEvidence(this.primaryKey).getVersion());
 	}
 
 	private int increase(int version) {
 		return version++;
+	}
+	
+	private static Calendar undefinedDate() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, 100);
+		return cal;
 	}
 
 	// GETTERS AND SETTERS

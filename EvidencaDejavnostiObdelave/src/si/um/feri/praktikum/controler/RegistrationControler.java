@@ -6,12 +6,10 @@ import javax.faces.bean.SessionScoped;
 
 import org.bson.Document;
 
-
 import com.mongodb.BasicDBObject;
-import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
 
 import si.um.feri.praktikum.connection.MongoClientProvider;
 import si.um.feri.praktikum.entity.User;
@@ -23,7 +21,7 @@ public class RegistrationControler {
 	User newUser = new User();
 	
 		MongoClientProvider mongoClientProvider  = MongoClientProvider.getInstance();
-		MongoClient mongoClient = (MongoClient) mongoClientProvider.getMongo();
+		MongoClient mongoClient = mongoClientProvider.getMongo();
 		
 	
 		

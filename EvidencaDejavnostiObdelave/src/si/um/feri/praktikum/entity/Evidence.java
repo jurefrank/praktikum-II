@@ -7,9 +7,7 @@ import java.util.UUID;
 import si.um.feri.praktikum.blockchain.BlockChainUtil;
 
 public class Evidence implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	// MANAGER
 	private String nameManager;
@@ -32,14 +30,36 @@ public class Evidence implements Serializable {
 	private UUID primaryKey;
 
 	// CONSTRUCTORS
+	/**
+	 * By default deletion date is 100 years from now.
+	 */
 	public Evidence() {
 		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), null);
 	}
 
+	/**
+	 * By default deletion date is 100 years from now.
+	 * 
+	 * @param primaryKey
+	 */
 	public Evidence(UUID primaryKey) {
 		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), primaryKey);
 	}
 
+	/**
+	 * 
+	 * @param nameManager
+	 * @param emailManager
+	 * @param phoneNumberManager
+	 * @param processingPurpose
+	 * @param descriptionCategoriesOfDataSubjectsTypesOfPersonalData
+	 * @param categoriesOfUsersWhomPersonalDataDisclosed
+	 * @param informationOnTransfersOfPersonalData
+	 * @param dataDeletionDate
+	 * @param generalDescriptionOfTechnicalSecurityMeasures
+	 * @param lastSaved
+	 * @param primaryKey
+	 */
 	public Evidence(String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
 			String descriptionCategoriesOfDataSubjectsTypesOfPersonalData,
 			String categoriesOfUsersWhomPersonalDataDisclosed, String informationOnTransfersOfPersonalData,
@@ -63,7 +83,7 @@ public class Evidence implements Serializable {
 	public int increaseVersion(int version) {
 		return version++;
 	}
-	
+
 	private static Calendar undefinedDate() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, 100);

@@ -25,13 +25,7 @@ public class RegistrationControler {
 		MongoClientProvider mongoClientProvider  = MongoClientProvider.getInstance();
 		MongoClient mongoClient = (MongoClient) mongoClientProvider.getMongo();
 		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 		
 		public String registerUser() {
@@ -50,7 +44,7 @@ public class RegistrationControler {
 			try {
 				System.out.println("try: " + add);
 				collection.insertOne(new Document(add));
-				
+				newUser = null;
 				
 				
 			}finally {

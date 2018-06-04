@@ -56,10 +56,10 @@ public class Evidence implements Serializable {
 		this.lastSaved = lastSaved;
 		this.primaryKey = primaryKey == null ? UUID.randomUUID() : primaryKey;
 		this.version = BlockChainUtil.getEvidence(this.primaryKey) == null ? 1
-				: increase(BlockChainUtil.getEvidence(this.primaryKey).getVersion());
+				: increaseVersion(BlockChainUtil.getEvidence(this.primaryKey).getVersion());
 	}
 
-	private int increase(int version) {
+	public int increaseVersion(int version) {
 		return version++;
 	}
 	

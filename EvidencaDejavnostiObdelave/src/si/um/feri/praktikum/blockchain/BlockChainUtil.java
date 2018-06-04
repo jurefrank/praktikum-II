@@ -27,6 +27,28 @@ public class BlockChainUtil {
 
 	/**
 	 * 
+	 * @return List of all public evidences.
+	 */
+	public static List<Evidence> getAllPublicEvidences() {
+		List<Evidence> evidences = new ArrayList<>();
+		for (Block b : BlockStorage.getInstance().getBlockchain())
+			evidences.add(b.getData());
+		return evidences;
+	}
+
+	/**
+	 * 
+	 * @return List of all last version public evidences.
+	 */
+	public static List<Evidence> getAllPublicEvidencesLastVersion() {
+		List<Evidence> evidences = new ArrayList<>();
+		for (Block b : BlockStorage.getInstance().getBlockchain())
+			evidences.add(getEvidence(b.getData().getPrimaryKey()));
+		return evidences;
+	}
+
+	/**
+	 * 
 	 * @param id
 	 *            User id.
 	 * @return List of all user Evidences.

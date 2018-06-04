@@ -2,14 +2,15 @@ package si.um.feri.praktikum.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.UUID;
-
-import com.google.gson.Gson;
 
 import si.um.feri.praktikum.blockchain.BlockChainUtil;
 
 public class Evidence implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// MANAGER
 	private String nameManager;
 	private String emailManager;

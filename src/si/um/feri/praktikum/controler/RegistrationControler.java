@@ -39,6 +39,7 @@ public class RegistrationControler {
 		MongoDatabase db = mongoClient.getDatabase(database);
 		MongoCollection<Document> collection = db.getCollection("users");
 
+		// BUBU
 		try {
 			System.out.println("try: " + add);
 			collection.insertOne(new Document(add));

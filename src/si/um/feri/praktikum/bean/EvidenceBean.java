@@ -76,12 +76,12 @@ public class EvidenceBean {
 		return BlockChainUtil.getAllPublicEvidencesLastVersion();
 	}
 
-	public List<Evidence> getAllUserEvidences(int id) {
+	public List<Evidence> getAllUserEvidences(String id) {
 		// log user
 		return BlockChainUtil.getAllUserEvidencesList(id);
 	}
 
-	public List<Evidence> getAllUserLastVersionEvidences(int id) {
+	public List<Evidence> getAllUserLastVersionEvidences(String id) {
 		// log user
 		return BlockChainUtil.getCurrentUserEvidencesList(id);
 	}

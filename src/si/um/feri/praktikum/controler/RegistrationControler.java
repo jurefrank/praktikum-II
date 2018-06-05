@@ -28,25 +28,21 @@ public class RegistrationControler {
 
 	public String registerUser() {
 
-		// BUBU
 		BasicDBObject document = new BasicDBObject();
 		document.append("_id", new ObjectId());
 		document.append("firstname", newUser.getFirstName());
 		document.append("lastname", newUser.getLastName());
 		document.append("mobilenumber", newUser.getMobileNumber());
 		document.append("email", newUser.getEmail());
-		
-		String hashedPassword = hashPassword(newUser.getPassword());
-		
-		document.append("password",  hashedPassword);
+		newUser.setPassword(hashPassword(newUser.getPassword())); // rewritting user password with hashed password
+		document.append("password", newUser.getPassword());
+		document.append("id", newUser.getId());
 
 		BasicDBObject add = new BasicDBObject("users", document);
 		MongoDatabase db = mongoClient.getDatabase(database);
 		MongoCollection<Document> collection = db.getCollection("users");
 
-		// BUBU
-		
-		//ensureIndex uporabi.
+		// ensureIndex uporabi.
 		try {
 			System.out.println("try: " + add);
 			collection.insertOne(new Document(add));
@@ -59,16 +55,13 @@ public class RegistrationControler {
 
 		return "welcomePage.xhtml";
 	}
-	
+
 	public static String hashPassword(String password) {
 		String salt = BCrypt.gensalt(workload);
 		String hashed_password = BCrypt.hashpw(password, salt);
 
 		return hashed_password;
 	}
-	
-	
-	
 
 	public User getNewUser() {
 		return newUser;

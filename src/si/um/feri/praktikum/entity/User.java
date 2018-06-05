@@ -6,9 +6,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 
+import si.um.feri.praktikum.blockchain.StringUtil;
 
-
-
+@SuppressWarnings("unused")
 public class User {
 
 	// USER THAT WILL USER OUR PORTAL
@@ -16,12 +16,13 @@ public class User {
 	private String lastName;
 	private int mobileNumber;
 	private String email;
-	private int id;
+	private String id = null;
 	private String password;
 
 	// Private and public key so user can sign evidences to know which evidence
 	// belong to which user
 	private PrivateKey privateKey;
+
 	private PublicKey publicKey;
 
 	public User() {
@@ -37,12 +38,17 @@ public class User {
 		generateKeyPair();
 	}
 
-
-	public int getId() {
-		return id;
+	private String generateId(String input) {
+		return StringUtil.hashSHA256(input);
 	}
 
-	public void setId(int id) {
+	public String getId() {
+		if (this.id == null)
+			this.id = generateId(this.email + this.password);
+		return this.id;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
 

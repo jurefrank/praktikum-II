@@ -8,6 +8,7 @@ import si.um.feri.praktikum.entity.Evidence;
 
 public class Block implements Serializable {
 
+	private static final long serialVersionUID = 7928750175767085088L;
 	private String hash;
 	private String previousHash;
 	private Evidence data;

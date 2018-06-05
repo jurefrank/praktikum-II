@@ -53,10 +53,10 @@ public class BlockChainUtil {
 	 *            User id.
 	 * @return List of all user Evidences.
 	 */
-	public static List<Evidence> getAllUserEvidencesList(int id) {
+	public static List<Evidence> getAllUserEvidencesList(String id) {
 		List<Evidence> ret = new ArrayList<>();
 		for (Block b : BlockStorage.getInstance().getBlockchain())
-			if (b.getData().getUser().getId() == id)
+			if (b.getData().getUser().getId().equals(id))
 				ret.add(b.getData());
 		return ret;
 	}
@@ -67,6 +67,7 @@ public class BlockChainUtil {
 	 *            List of all evidences we want to check.
 	 * @return Returns count of how many different evidences there is in list.
 	 */
+	@SuppressWarnings("unused")
 	private static int getDifferentEvidencesCount(List<Evidence> list) {
 		List<UUID> uuids = new ArrayList<>();
 		for (Evidence e : list)
@@ -96,7 +97,7 @@ public class BlockChainUtil {
 	 *            User id.
 	 * @return Returns only last saved versions of Evidences for specified user.
 	 */
-	public static List<Evidence> getCurrentUserEvidencesList(int id) {
+	public static List<Evidence> getCurrentUserEvidencesList(String id) {
 		List<Evidence> ret = new ArrayList<>();
 		for (UUID uuid : getDifferentUUIDList(getAllUserEvidencesList(id)))
 			ret.add(getEvidence(uuid));

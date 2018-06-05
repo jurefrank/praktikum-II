@@ -5,6 +5,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -19,6 +20,7 @@ import si.um.feri.praktikum.entity.User;
 @SessionScoped
 public class RegistrationControler {
 	final String database = "obdelavaDejavnostiDB";
+	private static int workload = 12;
 	User newUser = new User();
 
 	MongoClientProvider mongoClientProvider = MongoClientProvider.getInstance();
@@ -33,13 +35,18 @@ public class RegistrationControler {
 		document.append("lastname", newUser.getLastName());
 		document.append("mobilenumber", newUser.getMobileNumber());
 		document.append("email", newUser.getEmail());
-		document.append("password", newUser.getPassword());
+		
+		String hashedPassword = hashPassword(newUser.getPassword());
+		
+		document.append("password",  hashedPassword);
 
 		BasicDBObject add = new BasicDBObject("users", document);
 		MongoDatabase db = mongoClient.getDatabase(database);
 		MongoCollection<Document> collection = db.getCollection("users");
 
 		// BUBU
+		
+		//ensureIndex uporabi.
 		try {
 			System.out.println("try: " + add);
 			collection.insertOne(new Document(add));
@@ -52,6 +59,16 @@ public class RegistrationControler {
 
 		return "welcomePage.xhtml";
 	}
+	
+	public static String hashPassword(String password) {
+		String salt = BCrypt.gensalt(workload);
+		String hashed_password = BCrypt.hashpw(password, salt);
+
+		return hashed_password;
+	}
+	
+	
+	
 
 	public User getNewUser() {
 		return newUser;

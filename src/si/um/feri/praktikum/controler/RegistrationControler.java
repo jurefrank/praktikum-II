@@ -25,7 +25,8 @@ public class RegistrationControler {
 	MongoClient mongoClient = mongoClientProvider.getMongo();
 
 	public String registerUser() {
-		
+
+		// BUBU
 		BasicDBObject document = new BasicDBObject();
 		document.append("_id", new ObjectId());
 		document.append("firstname", newUser.getFirstName());
@@ -33,15 +34,13 @@ public class RegistrationControler {
 		document.append("mobilenumber", newUser.getMobileNumber());
 		document.append("email", newUser.getEmail());
 		document.append("password", newUser.getPassword());
-		
-		
+
 		BasicDBObject add = new BasicDBObject("users", document);
 		MongoDatabase db = mongoClient.getDatabase(database);
 		MongoCollection<Document> collection = db.getCollection("users");
-		
-	
+
 		try {
-		System.out.println("try: " + add);
+			System.out.println("try: " + add);
 			collection.insertOne(new Document(add));
 			newUser = null;
 

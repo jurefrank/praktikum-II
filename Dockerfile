@@ -8,6 +8,8 @@ ADD WebContent/ /opt/jboss/wildfly/standalone/deployments/praktikumEAR.ear/prakt
 ADD build/classes /opt/jboss/wildfly/standalone/deployments/praktikumEAR.ear/praktikum-II.war/WEB-INF/
 ADD /build/praktikumEAR.ear.deployed /opt/jboss/wildfly/standalone/deployments/
 
+#RUN /opt/jboss/wildfly/bin/standalone.sh --silent
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
 #Install java into fresh ubuntu
 
 #RUN apt-get update && \

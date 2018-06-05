@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -24,19 +25,23 @@ public class RegistrationControler {
 	MongoClient mongoClient = mongoClientProvider.getMongo();
 
 	public String registerUser() {
-
-		BasicDBObject document = new BasicDBObject("user", newUser);
-
-		String jsonString = document.toJson();
-
-		System.out.println("REGCON: " + jsonString);
-
-		BasicDBObject add = BasicDBObject.parse(jsonString);
+		
+		BasicDBObject document = new BasicDBObject();
+		document.append("_id", new ObjectId());
+		document.append("firstname", newUser.getFirstName());
+		document.append("lastname", newUser.getLastName());
+		document.append("mobilenumber", newUser.getMobileNumber());
+		document.append("email", newUser.getEmail());
+		document.append("password", newUser.getPassword());
+		
+		
+		BasicDBObject add = new BasicDBObject("users", document);
 		MongoDatabase db = mongoClient.getDatabase(database);
 		MongoCollection<Document> collection = db.getCollection("users");
-
+		
+	
 		try {
-			System.out.println("try: " + add);
+		System.out.println("try: " + add);
 			collection.insertOne(new Document(add));
 			newUser = null;
 
@@ -45,7 +50,7 @@ public class RegistrationControler {
 
 		}
 
-		return "login.xhtml";
+		return "welcomePage.xhtml";
 	}
 
 	public User getNewUser() {

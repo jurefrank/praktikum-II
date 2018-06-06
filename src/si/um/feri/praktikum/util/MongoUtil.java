@@ -11,7 +11,11 @@ public class MongoUtil {
 	public static final String DATABASE = "obdelavaDejavnostiDB";
 
 	public static MongoCollection<Document> getUsersCollection() {
-		return getMongoClient().getDatabase(DATABASE).getCollection("users");
+		return getCustomCollection("users");
+	}
+
+	public static MongoCollection<Document> getCustomCollection(String collection) {
+		return getMongoClient().getDatabase(DATABASE).getCollection(collection);
 	}
 
 	public static MongoClient getMongoClient() {

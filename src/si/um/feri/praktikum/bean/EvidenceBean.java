@@ -7,9 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import si.um.feri.praktikum.blockchain.Block;
-import si.um.feri.praktikum.blockchain.BlockChainUtil;
 import si.um.feri.praktikum.blockchain.BlockStorage;
 import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.util.BlockChainUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean

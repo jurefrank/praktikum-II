@@ -11,27 +11,42 @@
 	<div id="login-box">
 		<div class="left">
 			<h1>Sign up</h1>
-				<h:form>
-				
-					<h:inputText type="text" value ="#{registrationControler.newUser.firstName}" a:placeholder="First Name" /> 
-					<h:inputText  type="text" value="#{registrationControler.newUser.lastName}"	 a:placeholder="Last Name" /> 
-				
-					<h:inputText type="text" value="#{registrationControler.newUser.email}"	 a:placeholder="E-mail" /> 
-				
-					<h:inputText type="text" value="#{registrationControler.newUser.mobileNumber}" a:placeholder="Mobile number" /> 
-				
-					<h:inputSecret id="password" binding="#{passwordComponent}"  value="#{registrationControler.newUser.password}" required="true" a:placeholder="Password" />
-						<h:message for="password" /> 
-				
-				
-					<h:inputSecret id="confirm" required="#{not empty password.value}"  a:placeholder="Retype password">
-						<f:validator validatorId="confirmPasswordValidator"/>
-						<f:attribute name="passwordComponent" value="#{passwordComponent}"/> 
-						</h:inputSecret>
-						<h:message for="confirm" />
-				
-					<h:commandButton type="submit"  value="Sign up" action="#{registrationControler.registerUser()}" />
-				</h:form>
+			<h:form>
+
+				<h:inputText type="text"
+					value="#{registrationControler.newUser.firstName}"
+					a:placeholder="First Name" />
+				<h:inputText type="text"
+					value="#{registrationControler.newUser.lastName}"
+					a:placeholder="Last Name" />
+
+				<h:inputText id="email" type="text"
+					value="#{registrationControler.newUser.email}"
+					a:placeholder="E-mail">
+					<f:validator validatorId="emailExist" />
+				</h:inputText>
+				<h:message for="email"></h:message>
+
+				<h:inputText type="text"
+					value="#{registrationControler.newUser.mobileNumber}"
+					a:placeholder="Mobile number" />
+
+				<h:inputSecret id="password" binding="#{passwordComponent}"
+					value="#{registrationControler.newUser.password}" required="true"
+					a:placeholder="Password" />
+				<h:message for="password" />
+
+
+				<h:inputSecret id="confirm" required="#{not empty password.value}"
+					a:placeholder="Retype password">
+					<f:validator validatorId="confirmPasswordValidator" />
+					<f:attribute name="passwordComponent" value="#{passwordComponent}" />
+				</h:inputSecret>
+				<h:message for="confirm" />
+
+				<h:commandButton type="submit" value="Sign up"
+					action="#{registrationControler.registerUser()}" />
+			</h:form>
 		</div>
 
 		<div class="right">
@@ -40,10 +55,13 @@
 			<button class="social-signin twitter">Log in with Twitter</button>
 			<button class="social-signin google">Log in with Google+</button>
 			<h:form id="loginForm">
-			<h:button value="Facebook Connect" actionListener="#{loginPageBean.getFacebookUrlAuth()}"> </h:button>
-			<br/><br/>
-			<h:outputText value="#{loginPageBean.userFromSession}"></h:outputText>
-		</h:form>
+				<h:button value="Facebook Connect"
+					actionListener="#{loginPageBean.getFacebookUrlAuth()}">
+				</h:button>
+				<br />
+				<br />
+				<h:outputText value="#{loginPageBean.userFromSession}"></h:outputText>
+			</h:form>
 		</div>
 		<div class="or">OR</div>
 	</div>

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.util.StringUtil;
 
 public class Block implements Serializable {
 

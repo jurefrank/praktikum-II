@@ -1,9 +1,11 @@
-package si.um.feri.praktikum.blockchain;
+package si.um.feri.praktikum.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import si.um.feri.praktikum.blockchain.Block;
+import si.um.feri.praktikum.blockchain.BlockStorage;
 import si.um.feri.praktikum.entity.Evidence;
 
 public class BlockChainUtil {

@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 
-import si.um.feri.praktikum.blockchain.StringUtil;
+import si.um.feri.praktikum.util.StringUtil;
 
 @SuppressWarnings("unused")
 public class User {
@@ -36,6 +36,10 @@ public class User {
 		this.email = email;
 		this.password = password;
 		generateKeyPair();
+	}
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
 	}
 
 	private String generateId(String input) {

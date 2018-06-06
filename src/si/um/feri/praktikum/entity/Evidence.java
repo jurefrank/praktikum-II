@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.UUID;
 
-import si.um.feri.praktikum.blockchain.BlockChainUtil;
+import si.um.feri.praktikum.util.BlockChainUtil;
 
 public class Evidence implements Serializable {
 

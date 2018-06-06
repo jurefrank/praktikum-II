@@ -1,4 +1,4 @@
-package si.um.feri.praktikum.blockchain;
+package si.um.feri.praktikum.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
@@ -9,7 +9,10 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Base64;
 
+
+
 public class StringUtil {
+	private static int workload = 12;
 	public static String hashSHA256(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -58,4 +61,5 @@ public class StringUtil {
 	public static String getStringFromKey(Key key) {
 		return Base64.getEncoder().encodeToString(key.getEncoded());
 	}
+	
 }

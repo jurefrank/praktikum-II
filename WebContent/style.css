@@ -162,3 +162,6 @@ button.social-signin.twitter {
 button.social-signin.google {
   background: #DD4B39;
 }
+button.social-signin.switch {
+  background: #AA1EC6;
+}

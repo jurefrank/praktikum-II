@@ -16,18 +16,9 @@
 					<h:inputText type="text" value ="#{loginControler.email}" a:placeholder="E-Mail" /> 
 					<h:inputSecret id="password" binding="#{passwordComponent}"  value="#{loginControler.password}" required="true" a:placeholder="Password" />
 						<h:message for="password" /> 
-				
-				
-					<h:inputSecret id="confirm" required="#{not empty password.value}"  a:placeholder="Retype password">
-						<f:validator validatorId="confirmPasswordValidator"/>
-						<f:attribute name="passwordComponent" value="#{passwordComponent}"/> 
-						</h:inputSecret>
-						<h:message for="confirm" />
-				
 					<h:commandButton type="submit"  value="Login" action="#{loginControler.login}" />
 				</h:form>
 		</div>
-		
 	</div>
 </body>
 </html>

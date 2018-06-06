@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+<meta charset="UTF-8" />
+
+<title>Record form</title>
+<link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+	<div align="center">
+		<h:outputText value="#{evidenceBean.isChainValid()}"></h:outputText>
+		<h:outputText value="Ali se shrani veriga? rabim spr"></h:outputText>
+		<h:dataTable value="#{evidenceBean.blocks}" var="o">
+			<f:facet name="header">Seznam blokov</f:facet>
+			<h:column>
+				<f:facet name="header">Hash</f:facet>
+				<h:outputText value="#{o.hash}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Previous hash</f:facet>
+				<h:outputText value="#{o.previousHash}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Time stamp</f:facet>
+				<h:outputText value="#{o.timeStamp.time}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Evidence</f:facet>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Manager name</f:facet>
+				<h:outputText value="#{o.getData().getNameManager()}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+	</div>
+
+</body>
+</html>

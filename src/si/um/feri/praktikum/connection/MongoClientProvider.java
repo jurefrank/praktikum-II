@@ -7,7 +7,11 @@ import java.io.IOException;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+
+import si.um.feri.praktikum.util.MongoConnectionUtil;
+import si.um.feri.praktikum.util.MongoUtil;
 
 public class MongoClientProvider {
 
@@ -27,33 +31,15 @@ public class MongoClientProvider {
 		MongoClientOptions options = new MongoClientOptions.Builder().connectionsPerHost(3)
 				.maxConnectionIdleTime((60 * 1_000)).maxConnectionLifeTime((120 * 1_000)).build();
 
-		// String serverName = "127.0.0.1";
-		File file = new File("host");
-		if (!file.exists() && !file.isDirectory())
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		String serverName = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String cur;
-			while ((cur = br.readLine()) != null) {
-				serverName = cur;
-			}
-			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		ConnectionSettings cs = MongoConnectionUtil.CONNECTIONSETTINGS;
+		ServerAddress sa = new ServerAddress(cs.getServerIp(), cs.getServerPort());
+		if (cs.getUserName() != null) {
+			MongoCredential mc = MongoCredential.createCredential(cs.getUserName(), MongoUtil.DATABASE,
+					cs.getPassword().toCharArray());
+			mongo = new MongoClient(sa, mc, options);
+		} else {
+			mongo = new MongoClient(sa, options);
 		}
-		int serverPort = 27017;
-		ServerAddress sa = new ServerAddress(serverName.length() > 0 ? serverName : "localhost", serverPort);
-
-		mongo = new MongoClient(sa, options);
-
 		return mongo;
 	}
-
 }

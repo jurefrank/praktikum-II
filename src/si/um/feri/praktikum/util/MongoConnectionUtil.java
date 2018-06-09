@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import si.um.feri.praktikum.connection.ConnectionSettings;
@@ -22,8 +23,8 @@ public class MongoConnectionUtil {
 				file.createNewFile();
 				throw new IllegalArgumentException("Exception was thrown because host "
 						+ "file has just been created and host file has to be filled out.");
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IllegalArgumentException | IOException e) {
+				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
 		List<String> connectionStrings = new ArrayList<>();
 		try {
@@ -34,7 +35,7 @@ public class MongoConnectionUtil {
 			}
 			br.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		if (connectionStrings.size() == 2 || connectionStrings.size() == 4) {
 			ConnectionSettings cs = new ConnectionSettings();
@@ -45,7 +46,7 @@ public class MongoConnectionUtil {
 					try {
 						cs.setServerPort(Integer.parseInt(connectionStrings.get(i)));
 					} catch (NumberFormatException e) {
-						e.printStackTrace();
+						LOGGER.log(Level.SEVERE, e.toString(), e);
 						// log
 						System.exit(1);
 					}

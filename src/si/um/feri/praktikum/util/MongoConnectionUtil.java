@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import si.um.feri.praktikum.connection.ConnectionSettings;
 
 public class MongoConnectionUtil {
-
+	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
 	public static ConnectionSettings CONNECTIONSETTINGS = null;
 
 	public static void setup() {

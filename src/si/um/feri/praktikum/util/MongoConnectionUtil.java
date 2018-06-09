@@ -7,22 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import si.um.feri.praktikum.connection.ConnectionSettings;
 
-public class MongoConnectionUtil implements ServletContextListener {
+public class MongoConnectionUtil {
 
 	public static ConnectionSettings CONNECTIONSETTINGS = null;
 
-	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
-		// DONT NEED
-	}
-
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public static void setup() {
 
 		File file = new File("host");
 		if (!file.exists() && !file.isDirectory())
@@ -62,8 +53,10 @@ public class MongoConnectionUtil implements ServletContextListener {
 				else if (i == 3)
 					cs.setPassword(connectionStrings.get(i));
 			CONNECTIONSETTINGS = cs;
+		} else {
+			throw new IllegalArgumentException("Something is not right with host file. "
+					+ "Please make sure first line contains ip adress, second line port,"
+					+ " third if necessary username and fourth password.");
 		}
-
 	}
-
 }

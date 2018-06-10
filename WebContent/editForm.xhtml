@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+<meta charset="UTF-8" />
+
+<title>Edit form</title>
+</head>
+<body>
+	<ui:composition template="WEB-INF/shared/template.xhtml">
+		<ui:define name="content">
+			<f:view>
+	<h1>Edit Form</h1>
+	<div>
+					<h:dataTable value="#{evidenceBean.selectedEvidence}">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Manager" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.nameManager}" name="nameManager" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.nameManager}" p:placeholder="Manager" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Email" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.emailManager}"
+								name="emailManager" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.emailManager}" p:placeholder="Email" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Phone Number" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.phoneNumberManager}" name="phoneNumberManager" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.phoneNumberManager}"  
+							p:placeholder="Phone Number"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Descripton Category" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}" name="descriptionCategory" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}" p:placeholder="Description Category" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Categories" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.categoriesOfUsersWhomPersonalDataDisclosed}" name="categories" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.categoriesOfUsersWhomPersonalDataDisclosed}" p:placeholder="Categories" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Information" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.informationOnTransfersOfPersonalData}" name="information" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.informationOnTransfersOfPersonalData}" p:placeholder="Phone Number"Information />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Expiration Date" />
+							</f:facet>
+							<h:outputText value="#{evidenceBean.selectedEvidence.dataDeletionDate.time}" name="expirationDate" />
+							<hr></hr>
+							<h:inputText value="#{evidenceBean.newEvidence.dataDeletionDate.time}" p:placeholder="Expiration Date" />
+						</h:column>
+					</h:dataTable>
+
+					<br></br>
+					<h:commandButton value="Edit Evidence" action="viewEvidences.xhtml"
+						actionListener="#{evidenceBean.updateEvidence()}"></h:commandButton>
+				</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

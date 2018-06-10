@@ -16,20 +16,29 @@ import javax.servlet.ServletContextListener;
 import si.um.feri.praktikum.entity.Evidence;
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 
+/**
+ * Block storage implements ServletContextListener so it is used when server
+ * starts to call some init or setup methods, it also loads or creates
+ * blockchain.data and on shutdown it saves loaded data.
+ *
+ */
 public class BlockStorage implements Serializable, ServletContextListener {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final String STORELOCATION = "blockchain.data";
 	private List<Block> blockchain = new ArrayList<>();
 	private static BlockStorage INSTANCE = new BlockStorage();
 	private File blockchainFile = null;
 
+	/**
+	 * Default constructor.
+	 */
 	private BlockStorage() {
 	}
 
+	/**
+	 * 
+	 * @return Returns instance which contains blockchain collection.
+	 */
 	public static BlockStorage getInstance() {
 		return INSTANCE;
 	}
@@ -38,6 +47,12 @@ public class BlockStorage implements Serializable, ServletContextListener {
 		blockchain.add(block);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This method saves blockchain collection to file on server.
+	 * </p>
+	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		System.out.println("Writing file here: " + blockchainFile.getAbsolutePath());
@@ -52,6 +67,14 @@ public class BlockStorage implements Serializable, ServletContextListener {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This method loads or creates blockchain.data and calls
+	 * MongoConnectionUtil.setup() to setup connection settings so wildfly can
+	 * connect to mongo database.
+	 * </p>
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
@@ -78,10 +101,19 @@ public class BlockStorage implements Serializable, ServletContextListener {
 
 	}
 
+	/**
+	 * 
+	 * @return Return blockchain collection.
+	 */
 	public List<Block> getBlockchain() {
 		return blockchain;
 	}
 
+	/**
+	 * 
+	 * @param blockchain
+	 *            Sets blockchain collection.
+	 */
 	public void setBlockchain(List<Block> blockchain) {
 		this.blockchain = blockchain;
 	}

@@ -31,7 +31,7 @@ public class MongoClientProvider {
 		MongoClientOptions options = new MongoClientOptions.Builder().connectionsPerHost(3)
 				.maxConnectionIdleTime((60 * 1_000)).maxConnectionLifeTime((120 * 1_000)).build();
 
-		ConnectionSettings cs = MongoConnectionUtil.CONNECTIONSETTINGS;
+		ConnectionSettings cs = MongoConnectionUtil.getConnectionSettings();
 		ServerAddress sa = new ServerAddress(cs.getServerIp(), cs.getServerPort());
 		if (cs.getUserName() != null) {
 			MongoCredential mc = MongoCredential.createCredential(cs.getUserName(), MongoUtil.DATABASE,

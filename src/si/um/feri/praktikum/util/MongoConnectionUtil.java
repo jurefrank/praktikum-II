@@ -13,7 +13,7 @@ import si.um.feri.praktikum.connection.ConnectionSettings;
 
 public class MongoConnectionUtil {
 	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
-	public static ConnectionSettings CONNECTIONSETTINGS = null;
+	private static ConnectionSettings CONNECTIONSETTINGS = null;
 
 	public static void setup() {
 
@@ -48,8 +48,6 @@ public class MongoConnectionUtil {
 						cs.setServerPort(Integer.parseInt(connectionStrings.get(i)));
 					} catch (NumberFormatException e) {
 						LOGGER.log(Level.SEVERE, e.toString(), e);
-						// log
-						System.exit(1);
 					}
 				} else if (i == 2)
 					cs.setUserName(connectionStrings.get(i));
@@ -62,5 +60,9 @@ public class MongoConnectionUtil {
 					+ " third if necessary username and fourth password.\n" + "Host file location: "
 					+ file.getAbsolutePath());
 		}
+	}
+
+	public static ConnectionSettings getConnectionSettings() {
+		return CONNECTIONSETTINGS;
 	}
 }

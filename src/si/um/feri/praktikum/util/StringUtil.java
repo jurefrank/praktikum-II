@@ -8,11 +8,18 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Base64;
-
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class StringUtil {
-	private static int workload = 12;
+	private static final Logger LOGGER = LoggerUtil.getDefaultLogger(StringUtil.class.getName());
+
+	/**
+	 * 
+	 * @param input
+	 *            Input string is going to be hashed with SHA-256 algorithm.
+	 * @return Output is string hashed with SHA-256.
+	 */
 	public static String hashSHA256(String input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -26,12 +33,19 @@ public class StringUtil {
 			}
 			return hexString.toString();
 		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 			return null;
 		}
 	}
 
+	/**
+	 * 
+	 * @param privateKey
+	 *            User's private key.
+	 * @param input
+	 *            String which is going to be encrypted or we get user signature.
+	 * @return Encrypted string.
+	 */
 	public static byte[] applyDSASig(PrivateKey privateKey, String input) {
 		Signature dsa;
 		byte[] output = new byte[0];
@@ -42,24 +56,43 @@ public class StringUtil {
 			dsa.update(strByte);
 			output = dsa.sign();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		return output;
 	}
 
-	public static boolean verifyDSASig(PublicKey publicKey, String data, byte[] signature) {
+	/**
+	 * 
+	 * @param publicKey
+	 *            User's publickey.
+	 * @param data
+	 *            String data that wants to be compared with signature.
+	 * @param signature
+	 *            Encrypted data
+	 * @return Boolean if signatures match return true otherwise false.
+	 * @throws RuntimeException
+	 *             If exception occurs when getting instance or while verifying,
+	 *             RuntimeException will be thrown and error will be logged.
+	 */
+	public static boolean verifyDSASig(PublicKey publicKey, String data, byte[] signature) throws RuntimeException {
 		try {
 			Signature dsaVerify = Signature.getInstance("DSA", "SUN");
 			dsaVerify.initVerify(publicKey);
 			dsaVerify.update(data.getBytes());
 			return dsaVerify.verify(signature);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			LOGGER.log(Level.SEVERE, e.toString(), e);
+			throw new RuntimeException();
 		}
 	}
 
+	/**
+	 * 
+	 * @param key
+	 *            User's key.
+	 * @return String value of key.
+	 */
 	public static String getStringFromKey(Key key) {
 		return Base64.getEncoder().encodeToString(key.getEncoded());
 	}
-	
 }

@@ -30,16 +30,12 @@ public class LoggerUtil {
 			if (file.mkdir())
 				LOGGER.log(Level.FINE, "Log directory has been successfully created.");
 		try {
-			// Handler can have different levels. So we can have console and file handler.
-			// handler.setformatter
-			// to change formatting default XML.
 			FileHandler fh = new FileHandler(
 					"log/log_" + new SimpleDateFormat("dd_MM_yyyy").format(Calendar.getInstance().getTime()), true);
 			fh.setLevel(Level.FINE);
 			log.addHandler(fh);
 		} catch (SecurityException | IOException e) {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
-			e.printStackTrace();
 		}
 		return log;
 	}

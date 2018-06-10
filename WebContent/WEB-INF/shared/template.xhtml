@@ -4,20 +4,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title><ui:insert name="title"></ui:insert></title>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
 </h:head>
 <h:body>
 	<ui:insert name="header">
 		<nav class="navbar navbar-expand-md navbar-dark"> 
-		[<a href="/NalogaEna/faces/vpis.xhtml">Vpis</a>] [<a
-			href="/NalogaEna/faces/vseOsebe.xhtml">Vse Osebe</a>] [<a
-			href="/NalogaEna/faces/podrobnosti.xhtml">Podrobno</a>] [<a
-			href="/NalogaEna/faces/dodajtrener.xhtml">Nov trener</a>] [<a
-			href="/NalogaEna/faces/izberitrenerja.xhtml">Izberi trenerja</a>] [<a
-			href="/NalogaEna/faces/vsitrenerji.xhtml">Vsi trenerji</a>]
+		<a
+			href="/praktikum-II/faces/welcomePage.xhtml">Welcome Page</a>
+		<a
+			href="/praktikum-II/faces/recordForm.xhtml">Record Form</a> <a
+			href="/praktikum-II/faces/viewEvidences.xhtml">View Evidences</a> 
 		<hr />
 		</nav>
 	</ui:insert>
-
+	
 	<div id="content">
 		<ui:insert name="content">
 		</ui:insert>

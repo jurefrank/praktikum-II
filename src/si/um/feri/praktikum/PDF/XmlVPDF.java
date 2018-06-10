@@ -23,9 +23,10 @@ import org.apache.fop.apps.MimeConstants;
 public class XmlVPDF {
 
 	public void vPDF() throws FOPException, TransformerException, IOException {
-		File xsltFile = new File("C:\\Desktop\\desk.xsl");
-		
-		StreamSource xmlSource = new StreamSource(new File("C:\\Desktop\\file.xml"));
+		//xsl fo file
+		File xsltFile = new File("C:\\Users\\Jakob\\Desktop\\template.xsl");
+		//xml file z data
+		StreamSource xmlSource = new StreamSource(new File("C:\\Users\\Jakob\\Desktop\\faj1.xml"));
 		
 		
 		FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
@@ -34,7 +35,7 @@ public class XmlVPDF {
 		
 		OutputStream out;
 		
-		out = new java.io.FileOutputStream("C:\\Desktop\\ajl.pdf");
+		out = new java.io.FileOutputStream(new File("C:\\Users\\Jakob\\Desktop\\fajl.pdf"));
 		
 		try {
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);

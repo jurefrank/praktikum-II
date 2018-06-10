@@ -12,11 +12,13 @@
 
 </head>
 <body>
+	<ui:composition template="WEB-INF/shared/template.xhtml">
+	<ui:define name="content">
+			<f:view>
+			<h1>List of blocks</h1>
 	<div align="center">
-		<h:outputText value="#{evidenceBean.isChainValid()}"></h:outputText>
-		<h:outputText value="Ali se shrani veriga? rabim spr"></h:outputText>
-		<h:dataTable value="#{evidenceBean.blocks}" var="o">
-			<f:facet name="header">Seznam blokov</f:facet>
+		<h:dataTable id="bloki" value="#{evidenceBean.blocks}" var="o">
+
 			<h:column>
 				<f:facet name="header">Hash</f:facet>
 				<h:outputText value="#{o.hash}"></h:outputText>
@@ -38,6 +40,8 @@
 			</h:column>
 		</h:dataTable>
 	</div>
-
+	</f:view>
+	</ui:define>
+	</ui:composition>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
@@ -8,6 +9,9 @@
 <link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
+	<ui:composition template="WEB-INF/shared/template.xhtml">
+	<ui:define name="content">
+			<f:view>
 	<div id="login-box">
 		<div class="left">
 			<h1>Sign up</h1>
@@ -58,5 +62,8 @@
 		</div>
 		<div class="or">OR</div>
 	</div>
+	</f:view>
+	</ui:define>
+	</ui:composition>
 </body>
 </html>

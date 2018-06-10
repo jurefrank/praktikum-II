@@ -22,7 +22,8 @@ public class MongoConnectionUtil {
 			try {
 				file.createNewFile();
 				throw new IllegalArgumentException("Exception was thrown because host "
-						+ "file has just been created and host file has to be filled out.");
+						+ "file has just been created and host file has to be filled out.\n" + "Host file location: "
+						+ file.getAbsolutePath());
 			} catch (IllegalArgumentException | IOException e) {
 				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
@@ -58,7 +59,8 @@ public class MongoConnectionUtil {
 		} else {
 			throw new IllegalArgumentException("Something is not right with host file. "
 					+ "Please make sure first line contains ip adress, second line port,"
-					+ " third if necessary username and fourth password.");
+					+ " third if necessary username and fourth password.\n" + "Host file location: "
+					+ file.getAbsolutePath());
 		}
 	}
 }

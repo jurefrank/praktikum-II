@@ -56,13 +56,16 @@
 		<div class="right">
 			<span class="loginwith">Sign in with<br />social network
 			</span>
-			<button class="social-signin twitter">Sign in with Twitter</button>
 			<h:form>
-				<h:commandButton class="social-signin google" type="submit">Sign in with Google+</h:commandButton>
+				<h:commandButton styleClass="twitter" type="submit" value="Sign in with Twitter"/>
 			</h:form>
 			<h:form>
-			<h:commandButton type="submit" class ="social-signin facebook" action="#{socialControler.connectToFacebook()}">Sign in with Facebook</h:commandButton>
+				<h:commandButton styleClass="google" type="submit" value="Sign in with Google+"/>
 			</h:form>
+			<h:form>
+				<h:commandButton styleClass="facebook" action="#{socialControler.connectToFacebook()}" value="Sign in with Facebook" />
+			</h:form>
+			<h:button value="Already signed in" outcome="login.xhtml" />
 		</div>
 		<div class="or">OR</div>
 	</div>

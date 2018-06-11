@@ -16,12 +16,13 @@
 		<div class="left">
 			<h1>Login</h1>
 				<h:form>
-				
 					<h:inputText type="text" value ="#{loginControler.email}" a:placeholder="E-Mail" /> 
 					<h:inputSecret id="password" binding="#{passwordComponent}"  value="#{loginControler.password}" required="true" a:placeholder="Password" />
 						<h:message for="password" /> 
 					<h:commandButton type="submit"  value="Login" action="#{loginControler.login}" />
 				</h:form>
+				<br/>
+				<h:button value="Register here" outcome="welcomePage.xhtml" />
 		</div>
 	</div>
 	</f:view>

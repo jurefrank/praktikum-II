@@ -4,6 +4,8 @@ package si.um.feri.praktikum.controler;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,12 +26,15 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 
+import si.um.feri.praktikum.util.LoggerUtil;
+import si.um.feri.praktikum.util.MongoConnectionUtil;
 import si.um.feri.praktikum.util.MongoUtil;
 
 @ManagedBean
 @SessionScoped
 public class SocialControler implements Serializable {
-
+	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
+	
     private static final long serialVersionUID = 3658300628580536494L;
 	private static SocialAuthManager socialManager;
 	
@@ -53,7 +58,7 @@ public class SocialControler implements Serializable {
             String URLReturn = socialManager.getAuthenticationUrl(provider, redirectURL);
             FacesContext.getCurrentInstance().getExternalContext().redirect(URLReturn);
         } catch (Exception e) {
-            e.printStackTrace();
+        	LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
     public void getUserProfile() throws Exception {

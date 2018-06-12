@@ -13,35 +13,38 @@
 </head>
 <body>
 	<ui:composition template="WEB-INF/shared/template.xhtml">
-	<ui:define name="content">
-			<f:view>
-			<h1>List of blocks</h1>
-	<div align="center">
-		<h:dataTable id="bloki" value="#{evidenceBean.blocks}" var="o">
+		<ui:define name="content">
+			<h:panelGroup rendered="#{not empty user}">
+				<f:view>
+					<h1>List of blocks</h1>
+					<div align="center">
+						<h:dataTable id="bloki" value="#{evidenceBean.blocks}" var="o">
 
-			<h:column>
-				<f:facet name="header">Hash</f:facet>
-				<h:outputText value="#{o.hash}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Previous hash</f:facet>
-				<h:outputText value="#{o.previousHash}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Time stamp</f:facet>
-				<h:outputText value="#{o.timeStamp.time}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Evidence</f:facet>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Manager name</f:facet>
-				<h:outputText value="#{o.getData().getNameManager()}"></h:outputText>
-			</h:column>
-		</h:dataTable>
-	</div>
-	</f:view>
-	</ui:define>
+							<h:column>
+								<f:facet name="header">Hash</f:facet>
+								<h:outputText value="#{o.hash}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Previous hash</f:facet>
+								<h:outputText value="#{o.previousHash}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Time stamp</f:facet>
+								<h:outputText value="#{o.timeStamp.time}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Evidence</f:facet>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Manager name</f:facet>
+								<h:outputText value="#{o.getData().getNameManager()}"></h:outputText>
+							</h:column>
+						</h:dataTable>
+					</div>
+				</f:view>
+			</h:panelGroup>
+		</ui:define>
 	</ui:composition>
+
 </body>
 </html>

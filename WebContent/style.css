@@ -73,7 +73,7 @@ input[type="submit"] {
 	margin-top: 28px;
 	width: 120px;
 	height: 32px;
-	background: #a01631;
+	background: #0066c0;
 	border: none;
 	border-radius: 2px;
 	color: #FFF;
@@ -87,7 +87,7 @@ input[type="submit"].logout {
 	margin-top: 28px;
 	width: 120px;
 	height: 32px;
-	background: #1987b6;
+	background: #1d98cd;
 	border: none;
 	border-radius: 2px;
 	color: #FFF;
@@ -237,7 +237,7 @@ button.social-signin.switch {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: #16a085;
+	background-color: #5d8aa8;
 	color: white;
 }
 

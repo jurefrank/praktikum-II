@@ -11,8 +11,8 @@
 </head>
 <body>
 	<ui:composition template="WEB-INF/shared/template.xhtml">
-		<h:panelGroup rendered="#{not empty user}">
-			<ui:define name="content">
+		<ui:define name="content">
+			<h:panelGroup rendered="#{not empty user}">
 				<f:view>
 					<h1>Record form</h1>
 					<div align="center">
@@ -67,8 +67,8 @@
 
 					</div>
 				</f:view>
-			</ui:define>
-		</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
 	</ui:composition>
 </body>
 </html>

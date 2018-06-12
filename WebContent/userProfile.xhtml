@@ -24,11 +24,11 @@
 							<h:form>
 								<h:inputSecret id="password" binding="#{passwordComponent}"
 									value="#{userControler.newPassword}" required="true"
-									a:placeholder="Password" />
+									a:placeholder="New password" />
 								<h:message for="password" />
 								<h:inputSecret id="confirm"
 									required="#{not empty password.value}"
-									a:placeholder="Retype password">
+									a:placeholder="Retype new password">
 									<f:validator validatorId="confirmPasswordValidator" />
 									<f:attribute name="passwordComponent"
 										value="#{passwordComponent}" />

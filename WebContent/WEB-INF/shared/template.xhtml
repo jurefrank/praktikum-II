@@ -14,9 +14,11 @@
 	<ui:insert name="header">
 		<h:panelGroup rendered="#{not empty user}">
 			<nav class="navbar navbar-expand-md navbar-dark"> <a
+				href="/praktikum-II/faces/welcomePage.xhtml">Home</a> <a
 				href="/praktikum-II/faces/recordForm.xhtml">Record Form</a> <a
 				href="/praktikum-II/faces/viewEvidences.xhtml">View Evidences</a> <a
 				href="/praktikum-II/faces/userProfile.xhtml">Profile</a> <h:outputText
+				value=" Loged in as: "></h:outputText> <h:outputText
 				value="#{socialControler.profile.fullName}"></h:outputText> <h:outputText
 				value="#{user.email}"></h:outputText>
 			<hr />

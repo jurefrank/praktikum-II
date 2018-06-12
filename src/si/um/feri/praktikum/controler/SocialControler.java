@@ -106,7 +106,7 @@ public class SocialControler implements Serializable {
     public String logout() {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+		return "login.xhtml";
 	}
     
     

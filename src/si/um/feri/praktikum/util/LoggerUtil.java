@@ -1,8 +1,6 @@
 package si.um.feri.praktikum.util;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -22,13 +20,14 @@ public class LoggerUtil {
 		FileHandler fh = null;
 		try {
 			fh = new FileHandler(
-					"log-" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) + ".xml",
+					"log" + ".xml",// + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) +
 					true);
-			fh.setLevel(Level.FINER);
+			
 		} catch (SecurityException | IOException e) {
 			LOGGER.severe(e.toString());
 			e.printStackTrace();
 		}
+		fh.setLevel(Level.FINER);
 		log.addHandler(fh);
 		return log;
 	}

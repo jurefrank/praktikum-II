@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -79,6 +80,8 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		Logger log = LoggerUtil.getDefaultLogger(BlockStorage.class.getName());
+		log.info("TEST!");
 		
 		System.out.println("Loading blockchain on startup...");
 		blockchainFile = new File(STORELOCATION);

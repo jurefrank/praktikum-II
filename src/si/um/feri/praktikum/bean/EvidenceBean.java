@@ -20,13 +20,14 @@ public class EvidenceBean {
 	private Evidence selectedEvidence = new Evidence();
 	public static final int difficulty = 5;
 
-	public void addEvidence() {
+	public String addEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
 		System.out.println(blocks.size());
 		Block prevBlock = blocks.get(blocks.size() - 1);
 		blocks.add(new Block(prevBlock.getHash(), newEvidence));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
 		newEvidence = new Evidence();
+		return "viewEvidences.xhtml";
 	}
 
 	public static Boolean isChainValid() {

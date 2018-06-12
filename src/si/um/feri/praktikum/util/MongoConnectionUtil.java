@@ -24,8 +24,8 @@ public class MongoConnectionUtil {
 				throw new IllegalArgumentException("Exception was thrown because host "
 						+ "file has just been created and host file has to be filled out.\n" + "Host file location: "
 						+ file.getAbsolutePath());
-			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);				
+			} catch (IllegalArgumentException | IOException e) {
+				LOGGER.log(Level.SEVERE, e.toString(), e);
 				org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(MongoConnectionUtil.class);
 				logger.fatal(e.toString(), e);
 			}
@@ -57,6 +57,10 @@ public class MongoConnectionUtil {
 					cs.setPassword(connectionStrings.get(i));
 			CONNECTIONSETTINGS = cs;
 		} else {
+			LOGGER.severe("Something is not right with host file. "
+					+ "Please make sure first line contains ip adress, second line port,"
+					+ " third if necessary username and fourth password.\n" + "Host file location: "
+					+ file.getAbsolutePath());
 			throw new IllegalArgumentException("Something is not right with host file. "
 					+ "Please make sure first line contains ip adress, second line port,"
 					+ " third if necessary username and fourth password.\n" + "Host file location: "

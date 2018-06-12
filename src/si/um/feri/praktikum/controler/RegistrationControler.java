@@ -46,7 +46,7 @@ public class RegistrationControler {
 
 		}
 
-		return "welcomePage.xhtml";
+		return "login.xhtml";
 	}
 
 	public User getNewUser() {

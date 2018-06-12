@@ -17,34 +17,37 @@
 				<br />
 				<div>
 					<h:panelGroup rendered="#{not empty user}">
+
 						<h1>Welcome, #{user.firstName} </h1><h1> #{user.lastName}</h1>
+
+						<h1>Welcome, #{user.email}</h1>
+						<br />
+						<div align="center">
+							<h2>Change your password</h2>
+							<h:form>
+								<h:inputSecret id="password" binding="#{passwordComponent}"
+									value="#{userControler.newPassword}" required="true"
+									a:placeholder="New password" />
+								<h:message for="password" />
+								<h:inputSecret id="confirm"
+									required="#{not empty password.value}"
+									a:placeholder="Retype new password">
+									<f:validator validatorId="confirmPasswordValidator" />
+									<f:attribute name="passwordComponent"
+										value="#{passwordComponent}" />
+								</h:inputSecret>
+								<h:message for="confirm" />
+								<h:commandButton type="submit" value="Set password"
+									action="#{userControler.updateUserPassword}" />
+							</h:form>
+							<div>
+								<h:form>
+									<h:commandButton styleClass="logout"
+										action="#{socialControler.logout}" value="Logout" />
+								</h:form>
+							</div>
+						</div>
 					</h:panelGroup>
-				</div>
-				<br />
-				<div align="center">
-					<h2>Change your password</h2>
-					<h:form>
-						<h:inputSecret id="password" binding="#{passwordComponent}"
-							value="#{userControler.newPassword}" required="true"
-							a:placeholder="Password" />
-						<h:message for="password" />
-						<h:inputSecret id="confirm" required="#{not empty password.value}"
-							a:placeholder="Retype password">
-							<f:validator validatorId="confirmPasswordValidator" />
-							<f:attribute name="passwordComponent"
-								value="#{passwordComponent}" />
-						</h:inputSecret>
-						<h:message for="confirm" />
-						<h:commandButton type="submit" value="Set password"
-							action="#{userControler.updateUserPassword}" />
-					</h:form>
-					<div>
-						<h:form>
-							<h:commandButton styleClass="logout"
-								action="#{socialControler.logout}"
-								value="Logout" />
-						</h:form>
-					</div>
 				</div>
 			</div>
 		</ui:define>

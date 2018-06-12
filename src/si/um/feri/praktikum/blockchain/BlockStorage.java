@@ -79,6 +79,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		
 		System.out.println("Loading blockchain on startup...");
 		blockchainFile = new File(STORELOCATION);
 		if (blockchainFile != null && blockchainFile.exists() && !blockchainFile.isDirectory()) {

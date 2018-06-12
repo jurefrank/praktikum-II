@@ -4,30 +4,50 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-	
+
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <title>User profile</title>
+<link rel="stylesheet" href="style.css"></link>
 </head>
 <body>
-<h:panelGroup rendered="#{not empty user}">
-    <p>Welcome, #{user.email}</p>
-    </h:panelGroup>
-<h:form>
-	
-	<h:inputSecret id="password" binding="#{passwordComponent}"
-					value="#{userControler.newPassword}" required="true"
-					a:placeholder="Password" />
-				<h:message for="password" />
-
-
-				<h:inputSecret id="confirm" required="#{not empty password.value}"
-					a:placeholder="Retype password">
-					<f:validator validatorId="confirmPasswordValidator" />
-					<f:attribute name="passwordComponent" value="#{passwordComponent}" />
-				</h:inputSecret>
-				<h:message for="confirm" />
-</h:form>
-
+	<ui:composition template="WEB-INF/shared/template.xhtml">
+		<ui:define name="content">
+			<div id="login-box">
+				<br />
+				<div>
+					<h:panelGroup rendered="#{not empty user}">
+						<h1>Welcome, #{user.email}</h1>
+					</h:panelGroup>
+				</div>
+				<br />
+				<div align="center">
+					<h2>Change your password</h2>
+					<h:form>
+						<h:inputSecret id="password" binding="#{passwordComponent}"
+							value="#{userControler.newPassword}" required="true"
+							a:placeholder="Password" />
+						<h:message for="password" />
+						<h:inputSecret id="confirm" required="#{not empty password.value}"
+							a:placeholder="Retype password">
+							<f:validator validatorId="confirmPasswordValidator" />
+							<f:attribute name="passwordComponent"
+								value="#{passwordComponent}" />
+						</h:inputSecret>
+						<h:message for="confirm" />
+						<h:commandButton type="submit" value="Set password"
+							action="#{userControler.updateUserPassword}" />
+					</h:form>
+					<div>
+						<h:form>
+							<h:commandButton styleClass="logout"
+								action="#{socialControler.logout}"
+								value="Logout" />
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
 </body>
 </html>

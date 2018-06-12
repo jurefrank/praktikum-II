@@ -16,7 +16,7 @@ body {
 
 #login-box {
 	position: relative;
-	margin: 5% auto;
+	margin: auto;
 	width: 600px;
 	height: 500px;
 	background: #FFF;
@@ -38,6 +38,12 @@ h1 {
 	margin: 0 0 20px 0;
 	font-weight: 400;
 	font-size: 30px;
+	text-align: center;
+}
+h2 {
+	margin: 0 0 20px 0;
+	font-weight: 200;
+	font-size: 25px;
 	text-align: center;
 }
 
@@ -68,6 +74,20 @@ input[type="submit"] {
 	width: 120px;
 	height: 32px;
 	background: #a01631;
+	border: none;
+	border-radius: 2px;
+	color: #FFF;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	transition: 0.1s ease;
+	cursor: pointer;
+}
+input[type="submit"].logout {
+	margin-top: 28px;
+	width: 120px;
+	height: 32px;
+	background: #1987b6;
 	border: none;
 	border-radius: 2px;
 	color: #FFF;
@@ -273,7 +293,19 @@ input[type=button] {
 }
 
 hr {
-	height: 3px;
+	height: 12px;
 	border: 0;
 	box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+.logout{
+	width: 220px;
+	height: 36px;
+	border: none;
+	border-radius: 2px;
+	color: #FFF;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	transition: 0.2s ease;
+	cursor: pointer;
+	background: #DD4B39;
 }

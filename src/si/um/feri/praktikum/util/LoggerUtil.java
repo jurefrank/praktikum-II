@@ -1,15 +1,12 @@
 package si.um.feri.praktikum.util;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class LoggerUtil {
 	private final static Logger LOGGER = Logger.getLogger(LoggerUtil.class.getName());
@@ -24,18 +21,20 @@ public class LoggerUtil {
 		Logger log = Logger.getLogger(className);
 		FileHandler fh = null;
 		try {
-			 fh = new FileHandler("log-"+new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()), true);
-			 fh.setLevel(Level.FINER);			 
+			fh = new FileHandler(
+					"log-" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) + ".xml",
+					true);
+			fh.setLevel(Level.FINER);
 		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
+			LOGGER.severe(e.toString());
 			e.printStackTrace();
 		}
 		log.addHandler(fh);
 		return log;
 	}
-	
+
 	public static void log2File() {
-		
+
 	}
 
 	public static Logger getCustomLogger(String className, Level level, boolean useParent, FileHandler handler) {

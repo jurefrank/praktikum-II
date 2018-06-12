@@ -40,8 +40,8 @@ public class SocialControler implements Serializable {
 	
 	
 	private Profile profile;
-	private final String mainURL = "http://localhost:8080/praktikum-II/faces/welcomePage.xhtml";
-    private final String redirectURL = "https://localhost:8443/praktikum-II/faces/redirect.xhtml";
+	private final String mainURL = "obdelavaDejavnosti.si";
+    private final String redirectURL = "obdelavaDejavnosti.si";
     private final String provider = "facebook";
 	
 

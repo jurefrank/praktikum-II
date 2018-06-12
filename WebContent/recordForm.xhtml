@@ -11,60 +11,64 @@
 </head>
 <body>
 	<ui:composition template="WEB-INF/shared/template.xhtml">
-		<ui:define name="content">
-			<f:view>
-			<h1>Record form</h1>
-				<div align="center">
-					<h:form><i class="fas fa-user">
-						<h:inputText value="#{evidenceBean.newEvidence.nameManager}"
-							p:placeholder="Manager"  /></i><br/>
-							<i class="fas fa-envelope">
-						<h:inputText value="#{evidenceBean.newEvidence.emailManager}"
-							p:placeholder="Email" /></i><br/>
-							<i class="fas fa-phone">
-						<h:inputText
-							value="#{evidenceBean.newEvidence.phoneNumberManager}"
-							p:placeholder="Phone Number" /></i><br/>
+		<h:panelGroup rendered="#{not empty user}">
+			<ui:define name="content">
+				<f:view>
+					<h1>Record form</h1>
+					<div align="center">
+						<h:form>
+							<i class="fas fa-user"> <h:inputText
+									value="#{evidenceBean.newEvidence.nameManager}"
+									p:placeholder="Manager" /></i>
+							<br />
+							<i class="fas fa-envelope"> <h:inputText
+									value="#{evidenceBean.newEvidence.emailManager}"
+									p:placeholder="Email" /></i>
+							<br />
+							<i class="fas fa-phone"> <h:inputText
+									value="#{evidenceBean.newEvidence.phoneNumberManager}"
+									p:placeholder="Phone Number" /></i>
+							<br />
 							<i class="fas fa-spinner"></i>
-						<h:inputText value="#{evidenceBean.newEvidence.processingPurpose}"
-							p:placeholder="Processing Purpose" />
-						<!-- checkboxes? -->
-						<i class="fas fa-book"></i>
-						<h:inputText
-							value="#{evidenceBean.newEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"
-							p:placeholder="Description Category" />
+							<h:inputText
+								value="#{evidenceBean.newEvidence.processingPurpose}"
+								p:placeholder="Processing Purpose" />
+							<!-- checkboxes? -->
 							<i class="fas fa-book"></i>
-						<h:inputText
-							value="#{evidenceBean.newEvidence.categoriesOfUsersWhomPersonalDataDisclosed}"
-							p:placeholder="Categories" />
-						
-						<!-- textarea info, why, so on -->
-						<i class="fas fa-info">
-						<h:inputText
-							value="#{evidenceBean.newEvidence.informationOnTransfersOfPersonalData}"
-							p:placeholder="Information " /></i><br/>
-							
-						<!-- date of expiration -->
-						<i class="far fa-calendar-alt"></i>
-						<input type="date"
-							jsf:value="#{evidenceBean.newEvidence.dataDeletionDate.time}"
-							p:placeholder="ExpirationDate">
-						<f:convertDateTime pattern="yyyy-MM-dd"></f:convertDateTime>
-						</input>
-						<i class="fas fa-pencil-alt"></i>
-						<h:inputText
-							value="#{evidenceBean.newEvidence.generalDescriptionOfTechnicalSecurityMeasures}"
-							p:placeholder="General Description" />
-						<h:commandButton value="Save"
-							actionListener="#{evidenceBean.addEvidence}"></h:commandButton>
+							<h:inputText
+								value="#{evidenceBean.newEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"
+								p:placeholder="Description Category" />
+							<i class="fas fa-book"></i>
+							<h:inputText
+								value="#{evidenceBean.newEvidence.categoriesOfUsersWhomPersonalDataDisclosed}"
+								p:placeholder="Categories" />
 
+							<!-- textarea info, why, so on -->
+							<i class="fas fa-info"> <h:inputText
+									value="#{evidenceBean.newEvidence.informationOnTransfersOfPersonalData}"
+									p:placeholder="Information " /></i>
+							<br />
 
+							<!-- date of expiration -->
+							<i class="far fa-calendar-alt"></i>
+							<input type="date"
+								jsf:value="#{evidenceBean.newEvidence.dataDeletionDate.time}"
+								p:placeholder="ExpirationDate">
+							<f:convertDateTime pattern="yyyy-MM-dd"></f:convertDateTime>
+							</input>
+							<i class="fas fa-pencil-alt"></i>
+							<h:inputText
+								value="#{evidenceBean.newEvidence.generalDescriptionOfTechnicalSecurityMeasures}"
+								p:placeholder="General Description" />
+							<h:commandButton value="Save"
+								actionListener="#{evidenceBean.addEvidence}"></h:commandButton>
 
-					</h:form>
+						</h:form>
 
-				</div>
-			</f:view>
-		</ui:define>
+					</div>
+				</f:view>
+			</ui:define>
+		</h:panelGroup>
 	</ui:composition>
 </body>
 </html>

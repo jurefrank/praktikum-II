@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -20,22 +21,22 @@ public class LoggerUtil {
 
 	public static Logger getDefaultLogger(String className) {
 		Logger log = Logger.getLogger(className);
-		log.setUseParentHandlers(false);
+		LogManager.getLogManager().reset();
 		ConsoleHandler ch = new ConsoleHandler();
 		ch.setLevel(Level.SEVERE);
-		ch.setFormatter(new SimpleFormatter());
 		log.addHandler(ch);
+		
 		File file = new File("log");
 		if (!file.exists())
 			if (file.mkdir())
 				LOGGER.log(Level.FINE, "Log directory has been successfully created.");
 		try {
 			FileHandler fh = new FileHandler(
-					"log/log_" + new SimpleDateFormat("dd_MM_yyyy").format(Calendar.getInstance().getTime()), true);
+					"log/log_" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())+".log", true);
 			fh.setLevel(Level.FINE);
 			log.addHandler(fh);
 		} catch (SecurityException | IOException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			log.log(Level.SEVERE, e.toString(), e);
 		}
 		return log;
 	}

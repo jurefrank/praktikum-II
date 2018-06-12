@@ -14,6 +14,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.util.LoggerUtil;
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 
 /**
@@ -96,7 +97,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 		} else if (!blockchainFile.exists()) {
 			BlockStorage.getInstance().blockchain.add(new Block("0", new Evidence()));
 		}
-
+		LoggerUtil.init();
 		MongoConnectionUtil.setup();
 
 	}

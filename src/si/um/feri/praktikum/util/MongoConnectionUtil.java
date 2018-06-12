@@ -24,7 +24,7 @@ public class MongoConnectionUtil {
 				throw new IllegalArgumentException("Exception was thrown because host "
 						+ "file has just been created and host file has to be filled out.\n" + "Host file location: "
 						+ file.getAbsolutePath());
-			} catch (IllegalArgumentException | IOException e) {
+			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
 		List<String> connectionStrings = new ArrayList<>();

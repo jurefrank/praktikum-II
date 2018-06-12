@@ -25,7 +25,9 @@ public class MongoConnectionUtil {
 						+ "file has just been created and host file has to be filled out.\n" + "Host file location: "
 						+ file.getAbsolutePath());
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.SEVERE, e.toString(), e);				
+				org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(MongoConnectionUtil.class);
+				logger.fatal(e.toString(), e);
 			}
 		List<String> connectionStrings = new ArrayList<>();
 		try {

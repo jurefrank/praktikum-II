@@ -15,13 +15,15 @@ public class LoggerUtil {
 	private final static Logger LOGGER = Logger.getLogger(LoggerUtil.class.getName());
 
 	public static void init() {
-		LOGGER.setLevel(Level.FINER);
-		LOGGER.addHandler(new ConsoleHandler());
+		ConsoleHandler ch = new ConsoleHandler();
+		ch.setLevel(Level.FINER);
+		LOGGER.addHandler(ch);
 	}
 
 	public static Logger getDefaultLogger(String className) {
 		Logger log = Logger.getLogger(className);
 		LogManager.getLogManager().reset();
+		log.setUseParentHandlers(false);
 		ConsoleHandler ch = new ConsoleHandler();
 		ch.setLevel(Level.SEVERE);
 		log.addHandler(ch);
@@ -32,13 +34,17 @@ public class LoggerUtil {
 				LOGGER.log(Level.FINE, "Log directory has been successfully created.");
 		try {
 			FileHandler fh = new FileHandler(
-					"log/log_" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())+".log", true);
+					"log"+  File.separator +"log_" +".log", true);//+ new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())
 			fh.setLevel(Level.FINE);
 			log.addHandler(fh);
 		} catch (SecurityException | IOException e) {
-			log.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		return log;
+	}
+	
+	public static void log2File() {
+		
 	}
 
 	public static Logger getCustomLogger(String className, Level level, boolean useParent, FileHandler handler) {

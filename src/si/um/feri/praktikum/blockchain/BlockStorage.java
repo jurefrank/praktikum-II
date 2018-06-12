@@ -9,9 +9,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -27,7 +24,6 @@ import si.um.feri.praktikum.util.MongoConnectionUtil;
  *
  */
 public class BlockStorage implements Serializable, ServletContextListener {
-	private static final Logger logger = Logger.getLogger(BlockStorage.class.getName());
 	private static final long serialVersionUID = 1L;
 	private final String STORELOCATION = "blockchain.data";
 	private List<Block> blockchain = new ArrayList<>();
@@ -83,18 +79,6 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		FileHandler fh = null;
-		try {
-			fh = new FileHandler("log.xml", true);
-		} catch (SecurityException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		fh.setLevel(Level.FINE);
-		logger.addHandler(fh);
-		logger.info("TESTING DOCKER");
-		logger.severe("HELLO doCKER LOG ME TO FILE");
-		
 		
 		System.out.println("Loading blockchain on startup...");
 		blockchainFile = new File(STORELOCATION);

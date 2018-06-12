@@ -22,24 +22,15 @@ public class LoggerUtil {
 
 	public static Logger getDefaultLogger(String className) {
 		Logger log = Logger.getLogger(className);
-		LogManager.getLogManager().reset();
-		log.setUseParentHandlers(false);
-		ConsoleHandler ch = new ConsoleHandler();
-		ch.setLevel(Level.SEVERE);
-		log.addHandler(ch);
-		
-		File file = new File("log");
-		if (!file.exists())
-			if (file.mkdir())
-				LOGGER.log(Level.FINE, "Log directory has been successfully created.");
+		FileHandler fh = null;
 		try {
-			FileHandler fh = new FileHandler(
-					"log"+  File.separator +"log_" +".log", true);//+ new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())
-			fh.setLevel(Level.FINE);
-			log.addHandler(fh);
+			 fh = new FileHandler("log-"+new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()), true);
+			 fh.setLevel(Level.FINER);			 
 		} catch (SecurityException | IOException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		log.addHandler(fh);
 		return log;
 	}
 	

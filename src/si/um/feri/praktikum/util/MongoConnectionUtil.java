@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import si.um.feri.praktikum.connection.ConnectionSettings;
 
 public class MongoConnectionUtil {
-	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
+	private final static Logger LOGGER = LoggerUtil.getProductionLogger();
 	private static ConnectionSettings CONNECTIONSETTINGS = null;
 
 	public static void setup() {

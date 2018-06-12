@@ -1,6 +1,8 @@
 package si.um.feri.praktikum.util;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -19,10 +21,11 @@ public class LoggerUtil {
 		Logger log = Logger.getLogger(className);
 		FileHandler fh = null;
 		try {
-			fh = new FileHandler(
-					"log" + ".xml",// + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) +
+			fh = new FileHandler("log" + ".xml", // + new
+													// SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())
+													// +
 					true);
-			
+
 		} catch (SecurityException | IOException e) {
 			LOGGER.severe(e.toString());
 			e.printStackTrace();
@@ -32,7 +35,24 @@ public class LoggerUtil {
 		return log;
 	}
 
-	public static void log2File() {
+	public static Logger getProductionLogger() {
+		Logger log = Logger.getLogger("");
+		FileHandler fh = null;
+		try {
+			fh = new FileHandler(
+					"log" + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) + ".xml", // +
+																													// new
+																													// SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime())
+																													// +
+					true);
+
+		} catch (SecurityException | IOException e) {
+			LOGGER.severe(e.toString());
+			e.printStackTrace();
+		}
+		fh.setLevel(Level.SEVERE);
+		log.addHandler(fh);
+		return log;
 
 	}
 

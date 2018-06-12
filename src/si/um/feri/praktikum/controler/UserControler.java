@@ -2,6 +2,7 @@ package si.um.feri.praktikum.controler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,31 +19,30 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Indexes;
 
+import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.MongoUtil;
 import si.um.feri.praktikum.util.StringUtil;
 
 @ManagedBean
 @SessionScoped
 public class UserControler {
-	
-	private String email;
-	private String password;
+	private User user;
 	private String newPassword;
 	private List<String> persons = new ArrayList<>();
-	FacesContext context = FacesContext.getCurrentInstance();
-	
-	
 	
 	public String updateUserPassword() throws JSONException {
-
-		
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+		user = (User) sessionMap.get("user");
+		System.out.println("user:" + user.getEmail());
 		
 		newPassword = StringUtil.hashSHA256(this.newPassword);
 		MongoCollection<Document> collection = MongoUtil.getUsersCollection();
 		collection.createIndex(Indexes.ascending("email"));
+		
 		MongoClient mongoClient = MongoUtil.getMongoClient();
 		BasicDBObject searchObject = new BasicDBObject();
-		searchObject.put("email", email);
+		searchObject.put("email", user.getEmail());
 		System.out.println("search: "+ searchObject);
 		MongoCursor<Document> cursor = collection.find(searchObject).iterator();
 		
@@ -60,7 +60,7 @@ public class UserControler {
 			BasicDBObject updatePassword = new BasicDBObject();
 			
 			updatePassword.append("$set", new BasicDBObject()
-							.append("id", StringUtil.hashSHA256(email + newPassword)));
+							.append("id", StringUtil.hashSHA256(user.getEmail() + newPassword)));
 			
 			collection.updateOne(searchObject, updatePassword);
 			
@@ -85,22 +85,15 @@ public class UserControler {
 		this.newPassword = newPassword;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 
 }

@@ -66,6 +66,7 @@ public class MongoConnectionUtil {
 					+ " third if necessary username and fourth password.\n" + "Host file location: "
 					+ file.getAbsolutePath());
 		}
+		LOGGER.info(CONNECTIONSETTINGS.getUserName() + CONNECTIONSETTINGS.getPassword());
 	}
 
 	public static ConnectionSettings getConnectionSettings() {

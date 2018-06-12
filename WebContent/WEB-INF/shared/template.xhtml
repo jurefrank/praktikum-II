@@ -9,12 +9,14 @@
 </h:head>
 <h:body>
 	<ui:insert name="header">
-		<nav class="navbar navbar-expand-md navbar-dark"> 
-		<a
-			href="/praktikum-II/faces/welcomePage.xhtml">Welcome Page</a>
-		<a
-			href="/praktikum-II/faces/recordForm.xhtml">Record Form</a> <a
-			href="/praktikum-II/faces/viewEvidences.xhtml">View Evidences</a> 
+		<nav class="navbar navbar-expand-md navbar-dark" style="background-color:#c6c2e8;"> 
+		<a href="/praktikum-II/faces/recordForm.xhtml">Record Form</a> 
+		<a href="/praktikum-II/faces/viewEvidences.xhtml">View Evidences</a> 
+			<span style="float:right;">
+			<h:outputText value="#{socialControler.profile.fullName}"></h:outputText> 
+				<a href="/praktikum-II/faces/userProfile.xhtml">Profile</a></span>
+			<br/>
+			<br/>
 		<hr />
 		</nav>
 	</ui:insert>

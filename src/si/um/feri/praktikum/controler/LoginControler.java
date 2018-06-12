@@ -55,8 +55,7 @@ public class LoginControler {
 			String person = String.join(", ", persons);
 			JSONObject result = new JSONObject(person);
 			if (result != null && result.get("id").toString().equals(StringUtil.hashSHA256(email + password))) {
-				User user = new User(this.email,this.password);
-				System.out.println(user.getEmail() + user.getPassword());
+				User user = new User(this.email,this.password);				
 				context.getExternalContext().getSessionMap().put("user", user);
 				password = null;
 				email = null;

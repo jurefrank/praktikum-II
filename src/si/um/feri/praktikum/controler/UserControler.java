@@ -18,69 +18,64 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Indexes;
 
-import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.MongoUtil;
 import si.um.feri.praktikum.util.StringUtil;
 
-@ManagedBean(name="loginControler")
-@SessionScoped
-public class LoginControler {
-
+@ManagedBean
+public class UserControler {
+	
 	private String email;
 	private String password;
+	private String newPassword;
 	private List<String> persons = new ArrayList<>();
-
-	public String login() throws JSONException {
+	
+	
+	
+	public String updateUserPassword() throws JSONException {
 
 		FacesContext context = FacesContext.getCurrentInstance();
-
-
-		if (email == null || password == null) {
-			context.addMessage(null, new FacesMessage("Unknown login, try again"));
-			email = null;
-			password = null;
-			return null;
-		}
-		password = StringUtil.hashSHA256(this.password);
-
+		
+		newPassword = StringUtil.hashSHA256(this.newPassword);
 		MongoCollection<Document> collection = MongoUtil.getUsersCollection();
 		collection.createIndex(Indexes.ascending("id"));
 		MongoClient mongoClient = MongoUtil.getMongoClient();
 		BasicDBObject searchObject = new BasicDBObject();
 		searchObject.put("id", StringUtil.hashSHA256(email + password));
 		MongoCursor<Document> cursor = collection.find(searchObject).iterator();
-
+		
 		while (cursor.hasNext()) {
 			persons.add(cursor.next().toJson());
 			String person = String.join(", ", persons);
 			JSONObject result = new JSONObject(person);
-			if (result != null && result.get("id").toString().equals(StringUtil.hashSHA256(email + password))) {
-				User user = new User(this.email,this.password);
-				System.out.println(user.getEmail() + user.getPassword());
-				context.getExternalContext().getSessionMap().put("user", user);
-				password = null;
-				email = null;
+			if(result.get("password").equals(newPassword)) {
+				context.addMessage(null, new FacesMessage("Password is the same!"));
+				newPassword = null;
 				mongoClient.close();
-				return "recordForm.xhtml";
+				return "userProfile.xhtml";
 			}
+			BasicDBObject updatePassword = new BasicDBObject();
+			updatePassword.append("$set", new BasicDBObject()
+							.append("id", StringUtil.hashSHA256(email + newPassword)));
+			
+			return "welcomePage.xhtml";
 		}
-		mongoClient.close();
-		return "return";
-	}
-
-	public String logout() {
-
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+		
+		
+		return "welcomePage.xhtml";
 	}
 
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+
+
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+	
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 	public String getPassword() {
@@ -89,7 +84,16 @@ public class LoginControler {
 
 	public void setPassword(String password) {
 		this.password = password;
-
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }

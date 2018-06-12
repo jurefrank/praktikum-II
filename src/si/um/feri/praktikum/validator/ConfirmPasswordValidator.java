@@ -1,4 +1,4 @@
-package si.um.feri.praktikum.controler;
+package si.um.feri.praktikum.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

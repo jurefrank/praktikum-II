@@ -1,0 +1,33 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	
+<head>
+<meta charset="UTF-8"/>
+<title>User profile</title>
+</head>
+<body>
+<h:panelGroup rendered="#{not empty user}">
+    <p>Welcome, #{user.email}</p>
+    </h:panelGroup>
+<h:form>
+	
+	<h:inputSecret id="password" binding="#{passwordComponent}"
+					value="#{userControler.newPassword}" required="true"
+					a:placeholder="Password" />
+				<h:message for="password" />
+
+
+				<h:inputSecret id="confirm" required="#{not empty password.value}"
+					a:placeholder="Retype password">
+					<f:validator validatorId="confirmPasswordValidator" />
+					<f:attribute name="passwordComponent" value="#{passwordComponent}" />
+				</h:inputSecret>
+				<h:message for="confirm" />
+</h:form>
+
+</body>
+</html>

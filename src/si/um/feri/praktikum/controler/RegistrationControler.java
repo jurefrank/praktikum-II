@@ -20,7 +20,6 @@ import si.um.feri.praktikum.util.StringUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "registrationControler")
-@SessionScoped
 public class RegistrationControler {
 
 	private User newUser = new User();

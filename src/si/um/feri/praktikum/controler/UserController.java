@@ -23,6 +23,7 @@ import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.MongoUtil;
 import si.um.feri.praktikum.util.StringUtil;
 
+@SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
 /**
@@ -36,7 +37,8 @@ public class UserController {
 	private List<String> persons = new ArrayList<>();
 
 	/**
-	 * Method which extracts user data from session and then this data is used to update user password
+	 * Method which extracts user data from session and then this data is used to
+	 * update user password
 	 * 
 	 * @return returns user to login.xhtml page
 	 * @throws JSONException
@@ -54,15 +56,15 @@ public class UserController {
 		MongoClient mongoClient = MongoUtil.getMongoClient();
 		BasicDBObject searchObject = new BasicDBObject();
 		searchObject.put("email", user.getEmail());
-		System.out.println("search: "+ searchObject);
+		System.out.println("search: " + searchObject);
 		MongoCursor<Document> cursor = collection.find(searchObject).iterator();
 
 		while (cursor.hasNext()) {
 			persons.add(cursor.next().toJson());
 			String person = String.join(", ", persons);
 			JSONObject result = new JSONObject(person);
-			System.out.println("result:"+ result);
-			if(result.get("password").equals(newPassword)) {
+			System.out.println("result:" + result);
+			if (result.get("password").equals(newPassword)) {
 				context.addMessage(null, new FacesMessage("Password is the same!"));
 
 				mongoClient.close();
@@ -70,22 +72,16 @@ public class UserController {
 			}
 			BasicDBObject updatePassword = new BasicDBObject();
 
-			updatePassword.append("$set", new BasicDBObject()
-					.append("id", StringUtil.hashSHA256(user.getEmail() + newPassword)));
+			updatePassword.append("$set",
+					new BasicDBObject().append("id", StringUtil.hashSHA256(user.getEmail() + newPassword)));
 
 			collection.updateOne(searchObject, updatePassword);
 
 			return "welcomePage.xhtml";
 		}
 
-
 		return "login.xhtml";
 	}
-
-
-
-
-
 
 	/**
 	 * 
@@ -97,11 +93,13 @@ public class UserController {
 
 	/**
 	 * 
-	 * @param newPassword sets users new password
+	 * @param newPassword
+	 *            sets users new password
 	 */
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
+
 	/**
 	 * 
 	 * @return returns user object
@@ -109,15 +107,14 @@ public class UserController {
 	public User getUser() {
 		return user;
 	}
+
 	/**
 	 * Sets user for this class.
+	 * 
 	 * @param user
 	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-
-
 
 }

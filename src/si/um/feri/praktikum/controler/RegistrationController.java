@@ -1,19 +1,13 @@
 package si.um.feri.praktikum.controler;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
-import si.um.feri.praktikum.connection.MongoClientProvider;
 import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.MongoUtil;
 import si.um.feri.praktikum.util.StringUtil;
@@ -22,16 +16,18 @@ import si.um.feri.praktikum.util.StringUtil;
 @ManagedBean(name = "registrationControler")
 /**
  * 
- * Class for managing registration to our services 
+ * Class for managing registration to our services
  *
  */
 public class RegistrationController {
 
 	private User newUser = new User();
-/**
- *  Method for registering new users.
- * @return redirects users to login.xhtml
- */
+
+	/**
+	 * Method for registering new users.
+	 * 
+	 * @return redirects users to login.xhtml
+	 */
 	public String registerUser() {
 		MongoCollection<Document> collection = MongoUtil.getUsersCollection();
 		MongoClient mongoClient = MongoUtil.getMongoClient();

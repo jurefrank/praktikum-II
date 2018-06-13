@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import si.um.feri.praktikum.blockchain.Block;
 import si.um.feri.praktikum.blockchain.BlockStorage;
-import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.entity.Record;
 
 public class BlockChainUtil {
 
@@ -16,8 +16,8 @@ public class BlockChainUtil {
 	 *            UUID key which is able to find specified evidence in list.
 	 * @return Null if no result, or it returns last version of the document.
 	 */
-	public static Evidence getEvidence(UUID key) {
-		Evidence ret = null;
+	public static Record getEvidence(UUID key) {
+		Record ret = null;
 		for (Block b : BlockStorage.getInstance().getBlockchain())
 			if (b.getData().getPrimaryKey().equals(key))
 				if (ret == null)
@@ -31,8 +31,8 @@ public class BlockChainUtil {
 	 * 
 	 * @return List of all public evidences.
 	 */
-	public static List<Evidence> getAllPublicEvidences() {
-		List<Evidence> evidences = new ArrayList<>();
+	public static List<Record> getAllPublicEvidences() {
+		List<Record> evidences = new ArrayList<>();
 		for (Block b : BlockStorage.getInstance().getBlockchain())
 			evidences.add(b.getData());
 		return evidences;
@@ -42,8 +42,8 @@ public class BlockChainUtil {
 	 * 
 	 * @return List of all last version public evidences.
 	 */
-	public static List<Evidence> getAllPublicEvidencesLastVersion() {
-		List<Evidence> evidences = new ArrayList<>();
+	public static List<Record> getAllPublicEvidencesLastVersion() {
+		List<Record> evidences = new ArrayList<>();
 		for (Block b : BlockStorage.getInstance().getBlockchain())
 			evidences.add(getEvidence(b.getData().getPrimaryKey()));
 		return evidences;
@@ -55,8 +55,8 @@ public class BlockChainUtil {
 	 *            User id.
 	 * @return List of all user Evidences.
 	 */
-	public static List<Evidence> getAllUserEvidencesList(String id) {
-		List<Evidence> ret = new ArrayList<>();
+	public static List<Record> getAllUserEvidencesList(String id) {
+		List<Record> ret = new ArrayList<>();
 		for (Block b : BlockStorage.getInstance().getBlockchain())
 			if (b.getData().getUser().getId().equals(id))
 				ret.add(b.getData());
@@ -70,9 +70,9 @@ public class BlockChainUtil {
 	 * @return Returns count of how many different evidences there is in list.
 	 */
 	@SuppressWarnings("unused")
-	private static int getDifferentEvidencesCount(List<Evidence> list) {
+	private static int getDifferentEvidencesCount(List<Record> list) {
 		List<UUID> uuids = new ArrayList<>();
-		for (Evidence e : list)
+		for (Record e : list)
 			if (!uuids.contains(e.getPrimaryKey()))
 				uuids.add(e.getPrimaryKey());
 		return uuids.size();
@@ -85,9 +85,9 @@ public class BlockChainUtil {
 	 * @return Returns list of all different UUIDs which are primary keys of
 	 *         Evidences.
 	 */
-	private static List<UUID> getDifferentUUIDList(List<Evidence> list) {
+	private static List<UUID> getDifferentUUIDList(List<Record> list) {
 		List<UUID> uuids = new ArrayList<>();
-		for (Evidence e : list)
+		for (Record e : list)
 			if (!uuids.contains(e.getPrimaryKey()))
 				uuids.add(e.getPrimaryKey());
 		return uuids;
@@ -99,8 +99,8 @@ public class BlockChainUtil {
 	 *            User id.
 	 * @return Returns only last saved versions of Evidences for specified user.
 	 */
-	public static List<Evidence> getCurrentUserEvidencesList(String id) {
-		List<Evidence> ret = new ArrayList<>();
+	public static List<Record> getCurrentUserEvidencesList(String id) {
+		List<Record> ret = new ArrayList<>();
 		for (UUID uuid : getDifferentUUIDList(getAllUserEvidencesList(id)))
 			ret.add(getEvidence(uuid));
 		return ret;

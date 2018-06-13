@@ -24,12 +24,21 @@ import si.um.feri.praktikum.util.StringUtil;
 
 @ManagedBean(name="loginControler")
 @SessionScoped
-public class LoginControler {
+/**
+ * 
+ * Class for managing login to our services.
+ *
+ */
+public class LoginController {
 
 	private String email;
 	private String password;
 	private List<String> persons = new ArrayList<>();
-
+	/**
+	 * Method for login in to our services
+	 * @return
+	 * @throws JSONException
+	 */
 	public String login() throws JSONException {
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -66,26 +75,41 @@ public class LoginControler {
 		mongoClient.close();
 		return "return";
 	}
-
+	/**
+	 * Method for invalidate session
+	 * @return redirect user to our welcompage
+	 */
 	public String logout() {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+		return "login.xhtml";
 	}
 
-
+	/**
+	 * Getter for retrieving user email
+	 * @return returns user email
+	 */
 	public String getEmail() {
 		return email;
 	}
-
+	/**
+	 * Setter for setting user email
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	/**
+	 * Getter for retrieving user password
+	 * @return returns password
+	 */
 	public String getPassword() {
 		return password;
 	}
-
+	/**
+	 * Setter for setting user password
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 

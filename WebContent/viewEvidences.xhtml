@@ -21,23 +21,30 @@
 						<h:dataTable id="bloki" value="#{evidenceBean.blocks}" var="o">
 
 							<h:column>
-								<f:facet name="header">Hash</f:facet>
-								<h:outputText value="#{o.hash}"></h:outputText>
-							</h:column>
-							<h:column>
-								<f:facet name="header">Previous hash</f:facet>
-								<h:outputText value="#{o.previousHash}"></h:outputText>
-							</h:column>
-							<h:column>
-								<f:facet name="header">Time stamp</f:facet>
-								<h:outputText value="#{o.timeStamp.time}"></h:outputText>
-							</h:column>
-							<h:column>
-								<f:facet name="header">Evidence</f:facet>
+								<f:facet name="header">Title</f:facet>
+								<h:outputText value="#{o.getData().getTitle()}"></h:outputText>
 							</h:column>
 							<h:column>
 								<f:facet name="header">Manager name</f:facet>
 								<h:outputText value="#{o.getData().getNameManager()}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Manager email</f:facet>
+								<h:outputText value="#{o.getData().getEmailManager()}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Expiration date</f:facet>
+								<h:outputText value="#{o.getData().getDataDeletionDate().time}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Version</f:facet>
+								<h:outputText value="#{o.getData().getVersion()}"></h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet name="header"> Details </f:facet>
+								<h:form>
+								<h:commandLink value="Details"></h:commandLink>
+								</h:form>
 							</h:column>
 						</h:dataTable>
 					</div>

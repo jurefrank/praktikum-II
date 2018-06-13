@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.entity.Record;
 import si.um.feri.praktikum.util.StringUtil;
 
 /**
@@ -20,7 +20,7 @@ public class Block implements Serializable {
 	private static final long serialVersionUID = 7928750175767085088L;
 	private String hash;
 	private String previousHash;
-	private Evidence data;
+	private Record data;
 	private Calendar timeStamp = new GregorianCalendar();
 	private int nonce;
 
@@ -31,7 +31,7 @@ public class Block implements Serializable {
 	 * @param data
 	 *            Data which is going to be stored in block.
 	 */
-	public Block(String previousHash, Evidence data) {
+	public Block(String previousHash, Record data) {
 		this.previousHash = previousHash;
 		this.data = data;
 		this.timeStamp = Calendar.getInstance();
@@ -77,7 +77,7 @@ public class Block implements Serializable {
 	 * 
 	 * @return Returns data.
 	 */
-	public Evidence getData() {
+	public Record getData() {
 		return data;
 	}
 

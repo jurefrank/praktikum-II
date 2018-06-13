@@ -20,10 +20,18 @@ import si.um.feri.praktikum.util.StringUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean(name = "registrationControler")
-public class RegistrationControler {
+/**
+ * 
+ * Class for managing registration to our services 
+ *
+ */
+public class RegistrationController {
 
 	private User newUser = new User();
-
+/**
+ *  Method for registering new users.
+ * @return redirects users to login.xhtml
+ */
 	public String registerUser() {
 		MongoCollection<Document> collection = MongoUtil.getUsersCollection();
 		MongoClient mongoClient = MongoUtil.getMongoClient();

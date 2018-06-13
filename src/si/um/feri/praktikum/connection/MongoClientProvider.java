@@ -1,9 +1,19 @@
 package si.um.feri.praktikum.connection;
 
+import java.util.Arrays;
+
+import org.bson.Document;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Indexes;
 
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 import si.um.feri.praktikum.util.MongoUtil;
@@ -40,13 +50,19 @@ public class MongoClientProvider {
 				.maxConnectionIdleTime((60 * 1_000)).maxConnectionLifeTime((120 * 1_000)).build();
 
 		ConnectionSettings cs = MongoConnectionUtil.getConnectionSettings();
+		System.out.println(cs.getServerIp() + cs.getServerPort());
 		ServerAddress sa = new ServerAddress(cs.getServerIp(), cs.getServerPort());
-		if (cs.getUserName() != null) {
-			MongoCredential mc = MongoCredential.createCredential(cs.getUserName(), MongoUtil.DATABASE,
-					cs.getPassword().toCharArray());
-			mongo = new MongoClient(sa, mc, options);
-		} else {
-			mongo = new MongoClient(sa, options);
+		if (cs.getServerIp() != null && cs.getPassword() != null) {
+
+			// mongo = new MongoClient(sa, options);
+			if (cs.getUserName() != null && cs.getUserName().length() > 0) {
+				MongoCredential credential = MongoCredential.createCredential(cs.getUserName(), "admin",
+						cs.getPassword().toCharArray());
+				mongo = new MongoClient(sa, credential, options);
+
+			} else {
+				mongo = new MongoClient(sa, options);
+			}
 		}
 		return mongo;
 	}

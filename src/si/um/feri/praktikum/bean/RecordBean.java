@@ -24,25 +24,26 @@ import si.um.feri.praktikum.PDF.JSONvXML;
 import si.um.feri.praktikum.PDF.XmlVPDF;
 import si.um.feri.praktikum.blockchain.Block;
 import si.um.feri.praktikum.blockchain.BlockStorage;
-import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.entity.Record;
 import si.um.feri.praktikum.util.BlockChainUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
-public class EvidenceBean {
+public class RecordBean {
 
-	private Evidence newEvidence = new Evidence();
-	private Evidence selectedEvidence = new Evidence();
+	private Record newEvidence = new Record();
+	private Record selectedEvidence = new Record();
 	public static final int difficulty = 5;
 
-	public void addEvidence() {
+	public String addEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
 		System.out.println(blocks.size());
 		Block prevBlock = blocks.get(blocks.size() - 1);
 		blocks.add(new Block(prevBlock.getHash(), newEvidence));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		newEvidence = new Evidence();
+		newEvidence = new Record();
+		return "viewEvidences.xhtml";
 	}
 
 	public static Boolean isChainValid() {
@@ -78,84 +79,42 @@ public class EvidenceBean {
 		selectedEvidence.increaseVersion(selectedEvidence.getVersion());
 		blocks.add(new Block(prevBlock.getHash(), selectedEvidence));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		selectedEvidence = new Evidence();
+		selectedEvidence = new Record();
 
 	}
 
-		
-		
-	public String json() throws IOException, TransformerException, SAXException, ParserConfigurationException {
-		Gson gson = new Gson();
-		
-		String result = gson.toJson(selectedEvidence);
-		String xml = JSONvXML.readFile(result);
-	
-		
-		
-		return xml;
-	}
-	
-	public void download() throws IOException, TransformerException, SAXException, ParserConfigurationException {
-	
-		
-		String fileName = "Verzija";
-	    FacesContext fc = FacesContext.getCurrentInstance();
-	    ExternalContext ec = fc.getExternalContext();
 
-	    ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
-	    ec.setResponseContentType("application/pdf");
-	    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\""); // Shrani z Pop-up window
+	public List<Record> getAllPublicEvidences() {
 
-	    OutputStream output = ec.getResponseOutputStream();
-	    
-		String xml = json();
-		OutputStreamWriter osw = new OutputStreamWriter(output);
-		PrintWriter writer = new PrintWriter(osw);
-		writer.write(xml);
-		writer.flush();
-		writer.close();
-		
-		XmlVPDF v = new XmlVPDF();
-		
-		v.vPDF(xml, output);
-		
-
-	    fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
-	}
-	
-	
-	
-
-	public List<Evidence> getAllPublicEvidences() {
 		// log user who is accessing
 		return BlockChainUtil.getAllPublicEvidences();
 	}
 
-	public List<Evidence> getAllPublicLastVersionEvidences() {
+	public List<Record> getAllPublicLastVersionEvidences() {
 		// log user
 		return BlockChainUtil.getAllPublicEvidencesLastVersion();
 	}
 
-	public List<Evidence> getAllUserEvidences(String id) {
+	public List<Record> getAllUserEvidences(String id) {
 		// log user
 		return BlockChainUtil.getAllUserEvidencesList(id);
 	}
 
-	public List<Evidence> getAllUserLastVersionEvidences(String id) {
+	public List<Record> getAllUserLastVersionEvidences(String id) {
 		// log user
 		return BlockChainUtil.getCurrentUserEvidencesList(id);
 	}
 
-	public Evidence getEvidence(UUID uuid) {
+	public Record getEvidence(UUID uuid) {
 		// log user
 		return BlockChainUtil.getEvidence(uuid);
 	}
 
-	public Evidence getNewEvidence() {
+	public Record getNewEvidence() {
 		return newEvidence;
 	}
 
-	public void setNewEvidence(Evidence newEvidence) {
+	public void setNewEvidence(Record newEvidence) {
 		this.newEvidence = newEvidence;
 	}
 
@@ -163,11 +122,11 @@ public class EvidenceBean {
 		return BlockStorage.getInstance().getBlockchain();
 	}
 
-	public Evidence getSelectedEvidence() {
+	public Record getSelectedEvidence() {
 		return selectedEvidence;
 	}
 
-	public void setSelectedEvidence(Evidence selectedEvidence) {
+	public void setSelectedEvidence(Record selectedEvidence) {
 		this.selectedEvidence = selectedEvidence;
 	}
 

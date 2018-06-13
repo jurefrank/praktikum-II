@@ -64,8 +64,8 @@ input[type="text"], input[type="date"], input[type="password"] {
 
 input[type="text"]:focus, input[type="date"]:focus, input[type="password"]:focus
 	{
-	border-bottom: 2px solid #16a085;
-	color: #16a085;
+	border-bottom: 2px solid #1c98cc;
+	color: #1987b6;
 	transition: 0.2s ease;
 }
 
@@ -73,7 +73,7 @@ input[type="submit"] {
 	margin-top: 28px;
 	width: 120px;
 	height: 32px;
-	background: #a01631;
+	background: #0066c0;
 	border: none;
 	border-radius: 2px;
 	color: #FFF;
@@ -87,7 +87,7 @@ input[type="submit"].logout {
 	margin-top: 28px;
 	width: 120px;
 	height: 32px;
-	background: #1987b6;
+	background: #1d98cd;
 	border: none;
 	border-radius: 2px;
 	color: #FFF;
@@ -209,9 +209,6 @@ button.social-signin:active {
 	background: #DD4B39;
 }
 
-button.social-signin.switch {
-	background: #AA1EC6;
-}
 
 #bloki {
 	font-family: 'Roboto', sans-serif;
@@ -237,7 +234,7 @@ button.social-signin.switch {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: #16a085;
+	background-color: #5d8aa8;
 	color: white;
 }
 
@@ -270,7 +267,7 @@ a:active {
 }
 
 a:link {
-	background-color: #001f3f;
+	background-color: #0066c0;
 	border: none;
 	color: white;
 	padding: 5px 8px;

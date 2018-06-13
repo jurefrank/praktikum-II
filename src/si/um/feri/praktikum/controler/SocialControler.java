@@ -32,6 +32,11 @@ import si.um.feri.praktikum.util.MongoUtil;
 
 @ManagedBean
 @SessionScoped
+/**
+ * 
+ * Class used for managing social connections
+ *
+ */
 public class SocialControler implements Serializable {
 	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
 	
@@ -44,7 +49,9 @@ public class SocialControler implements Serializable {
     private final String redirectURL = "https://obdelavaDejavnosti.si:8443/praktikum-II/faces/redirect.xhtml";
     private final String provider = "facebook";
 	
-
+    /**
+     * Method for  connection to Facebook
+     */
     public void connectToFacebook() {
     	 Properties prop = System.getProperties();
     	prop.put("graph.facebook.com.consumer_key", "227414197855638");
@@ -61,6 +68,10 @@ public class SocialControler implements Serializable {
         	LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
+    /**
+     * Method for getting user from Rest API
+     * @throws Exception
+     */
     public void getUserProfile() throws Exception {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
@@ -102,7 +113,10 @@ public class SocialControler implements Serializable {
 
         FacesContext.getCurrentInstance().getExternalContext().redirect(mainURL);
     }
-    
+    /**
+     * Method for invalidating Sessions
+     * @return Redirects user to login.xhtml
+     */
     public String logout() {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
@@ -111,9 +125,17 @@ public class SocialControler implements Serializable {
     
     
     //GETTERS SETTERS
+    /**
+     * Getter for getting user profile from another REST API
+     * @return
+     */
 	public Profile getProfile() {
 		return profile;
 	}
+	/**
+	 * Sets profile for this class
+	 * @param profile
+	 */
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}

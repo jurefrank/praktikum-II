@@ -9,6 +9,12 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 @FacesValidator("confirmPasswordValidator")
+/**
+ * 
+ *ConfirmPasswordValidator implements Validator, with this class we 
+ *validate users password input.
+ *
+ */
 public class ConfirmPasswordValidator implements Validator {
 
 	@Override

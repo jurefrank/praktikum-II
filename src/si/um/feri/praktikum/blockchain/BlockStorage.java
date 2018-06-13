@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.entity.Record;
 import si.um.feri.praktikum.util.LoggerUtil;
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 
@@ -91,7 +91,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 				BlockStorage.getInstance().blockchain = (List<Block>) ois.readObject();
 				ois.close();
 				if (BlockStorage.getInstance().blockchain.size() == 0)
-					BlockStorage.getInstance().blockchain.add(new Block("0", new Evidence()));
+					BlockStorage.getInstance().blockchain.add(new Block("0", new Record()));
 				System.out.println("Blockchain loaded.");
 				System.out.println("blockchain size: " + BlockStorage.INSTANCE.blockchain.size());
 			} catch (IOException | ClassNotFoundException e) {
@@ -99,7 +99,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 				e.printStackTrace();
 			}
 		} else if (!blockchainFile.exists()) {
-			BlockStorage.getInstance().blockchain.add(new Block("0", new Evidence()));
+			BlockStorage.getInstance().blockchain.add(new Block("0", new Record()));
 		}
 		LoggerUtil.init();
 		MongoConnectionUtil.setup();

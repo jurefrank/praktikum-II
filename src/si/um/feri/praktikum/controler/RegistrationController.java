@@ -25,7 +25,7 @@ import si.um.feri.praktikum.util.StringUtil;
  * Class for managing registration to our services 
  *
  */
-public class RegistrationControler {
+public class RegistrationController {
 
 	private User newUser = new User();
 /**

@@ -29,7 +29,7 @@ import si.um.feri.praktikum.util.StringUtil;
  * Class for managing login to our services.
  *
  */
-public class LoginControler {
+public class LoginController {
 
 	private String email;
 	private String password;
@@ -82,7 +82,7 @@ public class LoginControler {
 	public String logout() {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+		return "login.xhtml";
 	}
 
 	/**

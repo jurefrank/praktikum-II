@@ -40,6 +40,12 @@
 								<f:facet name="header">Version</f:facet>
 								<h:outputText value="#{o.getData().getVersion()}"></h:outputText>
 							</h:column>
+							<h:column>
+								<f:facet name="header"> Details </f:facet>
+								<h:form>
+								<h:commandLink value="Details"></h:commandLink>
+								</h:form>
+							</h:column>
 						</h:dataTable>
 					</div>
 				</f:view>

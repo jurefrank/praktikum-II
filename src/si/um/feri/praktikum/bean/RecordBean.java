@@ -8,16 +8,16 @@ import javax.faces.bean.SessionScoped;
 
 import si.um.feri.praktikum.blockchain.Block;
 import si.um.feri.praktikum.blockchain.BlockStorage;
-import si.um.feri.praktikum.entity.Evidence;
+import si.um.feri.praktikum.entity.Record;
 import si.um.feri.praktikum.util.BlockChainUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
-public class EvidenceBean {
+public class RecordBean {
 
-	private Evidence newEvidence = new Evidence();
-	private Evidence selectedEvidence = new Evidence();
+	private Record newEvidence = new Record();
+	private Record selectedEvidence = new Record();
 	public static final int difficulty = 5;
 
 	public String addEvidence() {
@@ -26,7 +26,7 @@ public class EvidenceBean {
 		Block prevBlock = blocks.get(blocks.size() - 1);
 		blocks.add(new Block(prevBlock.getHash(), newEvidence));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		newEvidence = new Evidence();
+		newEvidence = new Record();
 		return "viewEvidences.xhtml";
 	}
 
@@ -63,40 +63,40 @@ public class EvidenceBean {
 		selectedEvidence.increaseVersion(selectedEvidence.getVersion());
 		blocks.add(new Block(prevBlock.getHash(), selectedEvidence));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		selectedEvidence = new Evidence();
+		selectedEvidence = new Record();
 
 	}
 
-	public List<Evidence> getAllPublicEvidences() {
+	public List<Record> getAllPublicEvidences() {
 		// log user who is accessing
 		return BlockChainUtil.getAllPublicEvidences();
 	}
 
-	public List<Evidence> getAllPublicLastVersionEvidences() {
+	public List<Record> getAllPublicLastVersionEvidences() {
 		// log user
 		return BlockChainUtil.getAllPublicEvidencesLastVersion();
 	}
 
-	public List<Evidence> getAllUserEvidences(String id) {
+	public List<Record> getAllUserEvidences(String id) {
 		// log user
 		return BlockChainUtil.getAllUserEvidencesList(id);
 	}
 
-	public List<Evidence> getAllUserLastVersionEvidences(String id) {
+	public List<Record> getAllUserLastVersionEvidences(String id) {
 		// log user
 		return BlockChainUtil.getCurrentUserEvidencesList(id);
 	}
 
-	public Evidence getEvidence(UUID uuid) {
+	public Record getEvidence(UUID uuid) {
 		// log user
 		return BlockChainUtil.getEvidence(uuid);
 	}
 
-	public Evidence getNewEvidence() {
+	public Record getNewEvidence() {
 		return newEvidence;
 	}
 
-	public void setNewEvidence(Evidence newEvidence) {
+	public void setNewEvidence(Record newEvidence) {
 		this.newEvidence = newEvidence;
 	}
 
@@ -104,11 +104,11 @@ public class EvidenceBean {
 		return BlockStorage.getInstance().getBlockchain();
 	}
 
-	public Evidence getSelectedEvidence() {
+	public Record getSelectedEvidence() {
 		return selectedEvidence;
 	}
 
-	public void setSelectedEvidence(Evidence selectedEvidence) {
+	public void setSelectedEvidence(Record selectedEvidence) {
 		this.selectedEvidence = selectedEvidence;
 	}
 

@@ -30,7 +30,7 @@ import si.um.feri.praktikum.util.StringUtil;
  * Controler for changing user password.
  *
  */
-public class UserControler {
+public class UserController {
 	private User user;
 	private String newPassword;
 	private List<String> persons = new ArrayList<>();

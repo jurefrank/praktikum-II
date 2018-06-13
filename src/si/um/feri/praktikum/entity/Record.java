@@ -12,7 +12,7 @@ import si.um.feri.praktikum.util.BlockChainUtil;
  * to new GDPR law.
  *
  */
-public class Evidence implements Serializable {
+public class Record implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// MANAGER
@@ -40,7 +40,7 @@ public class Evidence implements Serializable {
 	/**
 	 * By default deletion date is 100 years from now.
 	 */
-	public Evidence() {
+	public Record() {
 		this("","", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), null);
 	}
 
@@ -49,7 +49,7 @@ public class Evidence implements Serializable {
 	 * 
 	 * @param primaryKey
 	 */
-	public Evidence(UUID primaryKey) {
+	public Record(UUID primaryKey) {
 		this("","", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), primaryKey);
 	}
 
@@ -67,7 +67,7 @@ public class Evidence implements Serializable {
 	 * @param lastSaved
 	 * @param primaryKey
 	 */
-	public Evidence(String title,String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
+	public Record(String title,String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
 			String descriptionCategoriesOfDataSubjectsTypesOfPersonalData,
 			String categoriesOfUsersWhomPersonalDataDisclosed, String informationOnTransfersOfPersonalData,
 			Calendar dataDeletionDate, String generalDescriptionOfTechnicalSecurityMeasures, Calendar lastSaved,

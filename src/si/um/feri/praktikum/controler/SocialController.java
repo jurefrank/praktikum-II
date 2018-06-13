@@ -37,7 +37,7 @@ import si.um.feri.praktikum.util.MongoUtil;
  * Class used for managing social connections
  *
  */
-public class SocialControler implements Serializable {
+public class SocialController implements Serializable {
 	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
 	
     private static final long serialVersionUID = 3658300628580536494L;

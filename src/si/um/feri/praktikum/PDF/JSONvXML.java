@@ -14,15 +14,6 @@ import javax.xml.transform.TransformerException;
 
 import org.json.JSONException;
 import org.xml.sax.SAXException;
-<<<<<<< HEAD
-
-import si.um.feri.praktikum.bean.EvidenceBean;
-
-import java.io.Reader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-=======
->>>>>>> 0006a79fb17464c5e1dc56d4841177d3ec3d0c6b
 
 public class JSONvXML {
 

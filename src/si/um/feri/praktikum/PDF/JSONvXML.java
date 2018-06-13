@@ -23,13 +23,15 @@ import org.json.XML;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import si.um.feri.praktikum.bean.EvidenceBean;
+
 import java.io.Reader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class JSONvXML {
-	public static String inputPath= "C:\\Users\\Jakob\\Desktop\\fajl.json"; 
-	public static String outputPath= "C:\\Users\\Jakob\\Desktop\\fajl1.xml";
+
 	
 	public void Json2xml(org.json.simple.JSONObject jsonObject) throws JSONException, ParserConfigurationException, SAXException, IOException, TransformerException{
 	/*	String xml = XML.toString(jsonObject);
@@ -49,7 +51,8 @@ public class JSONvXML {
 
 	}
 	
-	
+
+	//Pretvori JSON datoteko v xml datoteko
 	public static String convert(String json, String root) throws JSONException {
 		org.json.JSONObject jsonFileObject = new org.json.JSONObject(json);
 		String xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<"+root+">" 
@@ -58,9 +61,10 @@ public class JSONvXML {
 		return xml;
 	}
 	
-	public static String readFile(String filepath) throws IOException {
+	//Prebere JSON datoteko
+	public static String readFile(String file) throws IOException {
 		StringBuilder sb = new StringBuilder();
-		InputStream in = new FileInputStream(inputPath);
+		InputStream in = new FileInputStream(file);
 		Charset encoding = Charset.defaultCharset();
 		
 		Reader reader = new InputStreamReader(in,encoding);
@@ -77,6 +81,8 @@ public class JSONvXML {
 		return sb.toString();	
 	}
 	
+	
+	//Shrani XML dtoteko
 	public static void writeFile(String filepath, String output) throws IOException {
 		FileWriter ofstream = new FileWriter(filepath);
 		try(BufferedWriter out = new BufferedWriter(ofstream)){

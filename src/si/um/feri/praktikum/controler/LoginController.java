@@ -22,7 +22,8 @@ import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.MongoUtil;
 import si.um.feri.praktikum.util.StringUtil;
 
-@ManagedBean(name="loginControler")
+@SuppressWarnings("deprecation")
+@ManagedBean(name = "loginControler")
 @SessionScoped
 /**
  * 
@@ -34,15 +35,16 @@ public class LoginController {
 	private String email;
 	private String password;
 	private List<String> persons = new ArrayList<>();
+
 	/**
 	 * Method for login in to our services
+	 * 
 	 * @return
 	 * @throws JSONException
 	 */
 	public String login() throws JSONException {
 
 		FacesContext context = FacesContext.getCurrentInstance();
-
 
 		if (email == null || password == null) {
 			context.addMessage(null, new FacesMessage("Unknown login, try again"));
@@ -64,7 +66,7 @@ public class LoginController {
 			String person = String.join(", ", persons);
 			JSONObject result = new JSONObject(person);
 			if (result != null && result.get("id").toString().equals(StringUtil.hashSHA256(email + password))) {
-				User user = new User(this.email,this.password);				
+				User user = new User(this.email, this.password);
 				context.getExternalContext().getSessionMap().put("user", user);
 				password = null;
 				email = null;
@@ -75,8 +77,10 @@ public class LoginController {
 		mongoClient.close();
 		return "return";
 	}
+
 	/**
 	 * Method for invalidate session
+	 * 
 	 * @return redirect user to our welcompage
 	 */
 	public String logout() {
@@ -87,27 +91,34 @@ public class LoginController {
 
 	/**
 	 * Getter for retrieving user email
+	 * 
 	 * @return returns user email
 	 */
 	public String getEmail() {
 		return email;
 	}
+
 	/**
 	 * Setter for setting user email
+	 * 
 	 * @param email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	/**
 	 * Getter for retrieving user password
+	 * 
 	 * @return returns password
 	 */
 	public String getPassword() {
 		return password;
 	}
+
 	/**
 	 * Setter for setting user password
+	 * 
 	 * @param password
 	 */
 	public void setPassword(String password) {

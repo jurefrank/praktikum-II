@@ -13,22 +13,22 @@ import org.bson.Document;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
 import si.um.feri.praktikum.util.MongoUtil;
 
 @FacesValidator("emailExist")
 /**
  * 
- * EmailValidator is class which implements Validator and is used for validating 
+ * EmailValidator is class which implements Validator and is used for validating
  * user input.
  *
  */
 public class EmailValidator implements Validator {
-	
+
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
+		@SuppressWarnings("unused")
 		UIInput emailComponent = (UIInput) component.getAttributes().get("email");
 		String email = (String) value;
 
@@ -37,11 +37,9 @@ public class EmailValidator implements Validator {
 		BasicDBObject searchMail = new BasicDBObject("email", email);
 		long counter = collection.count(searchMail);
 		mongoClient.close();
-		if (counter > 0) 
+		if (counter > 0)
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email exists!", null));
-			
-			
+
 	}
 
 }
-

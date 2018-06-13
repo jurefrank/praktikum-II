@@ -1,6 +1,5 @@
 package si.um.feri.praktikum.controler;
 
-
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Properties;
@@ -30,6 +29,7 @@ import si.um.feri.praktikum.util.LoggerUtil;
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 import si.um.feri.praktikum.util.MongoUtil;
 
+@SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
 /**
@@ -39,106 +39,109 @@ import si.um.feri.praktikum.util.MongoUtil;
  */
 public class SocialController implements Serializable {
 	private final static Logger LOGGER = LoggerUtil.getDefaultLogger(MongoConnectionUtil.class.getName());
-	
-    private static final long serialVersionUID = 3658300628580536494L;
+
+	private static final long serialVersionUID = 3658300628580536494L;
 	private static SocialAuthManager socialManager;
-	
-	
+
 	private Profile profile;
 	private final String mainURL = "http://obdelavaDejavnosti.si:8080/praktikum-II/faces/welcomePage.xhtml";
-    private final String redirectURL = "https://obdelavaDejavnosti.si:8443/praktikum-II/faces/redirect.xhtml";
-    private final String provider = "facebook";
-	
-    /**
-     * Method for  connection to Facebook
-     */
-    public void connectToFacebook() {
-    	 Properties prop = System.getProperties();
-    	prop.put("graph.facebook.com.consumer_key", "227414197855638");
-        prop.put("graph.facebook.com.consumer_secret", "0cb6016366079a68428467f7c7696398");
-        prop.put("graph.facebook.com.custom_permissions", "public_profile,email");
-        SocialAuthConfig socialConfig = SocialAuthConfig.getDefault();
-        try {
-            socialConfig.load(prop);
-            socialManager = new SocialAuthManager();
-            socialManager.setSocialAuthConfig(socialConfig);
-            String URLReturn = socialManager.getAuthenticationUrl(provider, redirectURL);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(URLReturn);
-        } catch (Exception e) {
-        	LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
-    /**
-     * Method for getting user from Rest API
-     * @throws Exception
-     */
-    public void getUserProfile() throws Exception {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-        MongoClient mongoClient = MongoUtil.getMongoClient();
-        Map<String, String> parametersMap = SocialAuthUtil.getRequestParametersMap(request);
+	private final String redirectURL = "https://obdelavaDejavnosti.si:8443/praktikum-II/faces/redirect.xhtml";
+	private final String provider = "facebook";
 
-        if (socialManager != null) {
-            AuthProvider provider = socialManager.connect(parametersMap);
-            this.setProfile(provider.getUserProfile());
-           
-           //checking if we have this user already in database
-            MongoCollection<Document> collection = MongoUtil.getUsersCollection();
-            BasicDBObject searchMail = new BasicDBObject("email", profile.getEmail());
-    		long counter = collection.count(searchMail);
-    		if (counter > 0) {
-    			mongoClient.close();
-    			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email exists!", null));
-    			
-    		}
-    			
-        }
-        //creating new collections of users that are using social login.
-        MongoCollection<Document> socialCollection = MongoUtil.getCustomCollection("socialUsers");
-        BasicDBObject document = new BasicDBObject();
-        document.append("validatedId", profile.getValidatedId());
-        document.append("firstName", profile.getFirstName());
-        document.append("lastName", profile.getLastName());
-        document.append("email", profile.getEmail());
-        try {
-        	//adding only social login users.
+	/**
+	 * Method for connection to Facebook
+	 */
+	public void connectToFacebook() {
+		Properties prop = System.getProperties();
+		prop.put("graph.facebook.com.consumer_key", "227414197855638");
+		prop.put("graph.facebook.com.consumer_secret", "0cb6016366079a68428467f7c7696398");
+		prop.put("graph.facebook.com.custom_permissions", "public_profile,email");
+		SocialAuthConfig socialConfig = SocialAuthConfig.getDefault();
+		try {
+			socialConfig.load(prop);
+			socialManager = new SocialAuthManager();
+			socialManager.setSocialAuthConfig(socialConfig);
+			String URLReturn = socialManager.getAuthenticationUrl(provider, redirectURL);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(URLReturn);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.toString(), e);
+		}
+	}
+
+	/**
+	 * Method for getting user from Rest API
+	 * 
+	 * @throws Exception
+	 */
+	public void getUserProfile() throws Exception {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		MongoClient mongoClient = MongoUtil.getMongoClient();
+		Map<String, String> parametersMap = SocialAuthUtil.getRequestParametersMap(request);
+
+		if (socialManager != null) {
+			AuthProvider provider = socialManager.connect(parametersMap);
+			this.setProfile(provider.getUserProfile());
+
+			// checking if we have this user already in database
+			MongoCollection<Document> collection = MongoUtil.getUsersCollection();
+			BasicDBObject searchMail = new BasicDBObject("email", profile.getEmail());
+			long counter = collection.count(searchMail);
+			if (counter > 0) {
+				mongoClient.close();
+				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email exists!", null));
+
+			}
+
+		}
+		// creating new collections of users that are using social login.
+		MongoCollection<Document> socialCollection = MongoUtil.getCustomCollection("socialUsers");
+		BasicDBObject document = new BasicDBObject();
+		document.append("validatedId", profile.getValidatedId());
+		document.append("firstName", profile.getFirstName());
+		document.append("lastName", profile.getLastName());
+		document.append("email", profile.getEmail());
+		try {
+			// adding only social login users.
 			System.out.println("try: " + document);
 			socialCollection.insertOne(new Document(document));
-			
 
 		} finally {
 			mongoClient.close();
 
 		}
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect(mainURL);
-    }
-    /**
-     * Method for invalidating Sessions
-     * @return Redirects user to login.xhtml
-     */
-    public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().redirect(mainURL);
+	}
+
+	/**
+	 * Method for invalidating Sessions
+	 * 
+	 * @return Redirects user to login.xhtml
+	 */
+	public String logout() {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "login.xhtml";
 	}
-    
-    
-    //GETTERS SETTERS
-    /**
-     * Getter for getting user profile from another REST API
-     * @return
-     */
+
+	// GETTERS SETTERS
+	/**
+	 * Getter for getting user profile from another REST API
+	 * 
+	 * @return
+	 */
 	public Profile getProfile() {
 		return profile;
 	}
+
 	/**
 	 * Sets profile for this class
+	 * 
 	 * @param profile
 	 */
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}
-    
-    
+
 }

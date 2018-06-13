@@ -64,8 +64,8 @@ input[type="text"], input[type="date"], input[type="password"] {
 
 input[type="text"]:focus, input[type="date"]:focus, input[type="password"]:focus
 	{
-	border-bottom: 2px solid #16a085;
-	color: #16a085;
+	border-bottom: 2px solid #1c98cc;
+	color: #1987b6;
 	transition: 0.2s ease;
 }
 

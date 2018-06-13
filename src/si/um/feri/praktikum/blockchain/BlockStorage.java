@@ -82,7 +82,9 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		Logger log = LoggerUtil.getDefaultLogger(BlockStorage.class.getName());
 		log.info("TEST!");
-		
+		Logger log2 = LoggerUtil.getProductionLogger();
+		log2.severe("TESTING 2");
+
 		System.out.println("Loading blockchain on startup...");
 		blockchainFile = new File(STORELOCATION);
 		if (blockchainFile != null && blockchainFile.exists() && !blockchainFile.isDirectory()) {
@@ -102,8 +104,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 			BlockStorage.getInstance().blockchain.add(new Block("0", new Record()));
 		}
 		LoggerUtil.init();
-		MongoConnectionUtil.setup();
-
+		MongoConnectionUtil.getInstance();
 	}
 
 	/**

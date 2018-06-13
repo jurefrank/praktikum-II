@@ -12,13 +12,27 @@ import java.util.logging.Logger;
 import si.um.feri.praktikum.connection.ConnectionSettings;
 
 public class MongoConnectionUtil {
+	private static MongoConnectionUtil instance = null;
 	private final static Logger LOGGER = LoggerUtil.getProductionLogger();
-	private static ConnectionSettings CONNECTIONSETTINGS = null;
+	private ConnectionSettings CONNECTIONSETTINGS = new ConnectionSettings();
 
-	public static void setup() {
+	public static MongoConnectionUtil getInstance() {
+		if (instance == null)
+			instance = new MongoConnectionUtil();
+		return instance;
+	}
 
+	public MongoConnectionUtil() {
+
+		setup();
+	}
+
+	public void setup() {
+		System.out.println("SETUP");
 		File file = new File("host");
-		if (!file.exists() && !file.isDirectory())
+		System.out.println(file.getAbsolutePath());
+		if (!file.exists() && !file.isDirectory()) {
+			System.out.println("SEM TUKAJ");
 			try {
 				file.createNewFile();
 				throw new IllegalArgumentException("Exception was thrown because host "
@@ -29,47 +43,11 @@ public class MongoConnectionUtil {
 				org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(MongoConnectionUtil.class);
 				logger.fatal(e.toString(), e);
 			}
-		List<String> connectionStrings = new ArrayList<>();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String cur;
-			while ((cur = br.readLine()) != null) {
-				connectionStrings.add(cur);
-			}
-			br.close();
-		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
-		if (connectionStrings.size() == 2 || connectionStrings.size() == 4) {
-			ConnectionSettings cs = new ConnectionSettings();
-			for (int i = 0; i < connectionStrings.size(); i++)
-				if (i == 0)
-					cs.setServerIp(connectionStrings.get(i));
-				else if (i == 1) {
-					try {
-						cs.setServerPort(Integer.parseInt(connectionStrings.get(i)));
-					} catch (NumberFormatException e) {
-						LOGGER.log(Level.SEVERE, e.toString(), e);
-					}
-				} else if (i == 2)
-					cs.setUserName(connectionStrings.get(i));
-				else if (i == 3)
-					cs.setPassword(connectionStrings.get(i));
-			CONNECTIONSETTINGS = cs;
-		} else {
-			LOGGER.severe("Something is not right with host file. "
-					+ "Please make sure first line contains ip adress, second line port,"
-					+ " third if necessary username and fourth password.\n" + "Host file location: "
-					+ file.getAbsolutePath());
-			throw new IllegalArgumentException("Something is not right with host file. "
-					+ "Please make sure first line contains ip adress, second line port,"
-					+ " third if necessary username and fourth password.\n" + "Host file location: "
-					+ file.getAbsolutePath());
-		}
-		LOGGER.info(CONNECTIONSETTINGS.getUserName() + CONNECTIONSETTINGS.getPassword());
+
 	}
 
-	public static ConnectionSettings getConnectionSettings() {
+	public ConnectionSettings getConnectionSettings() {
 		return CONNECTIONSETTINGS;
 	}
 }

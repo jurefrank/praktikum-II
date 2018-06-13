@@ -30,7 +30,7 @@ import si.um.feri.praktikum.util.MongoConnectionUtil;
 import si.um.feri.praktikum.util.MongoUtil;
 
 @SuppressWarnings("deprecation")
-@ManagedBean
+@ManagedBean(name = "socialControler")
 @SessionScoped
 /**
  * 

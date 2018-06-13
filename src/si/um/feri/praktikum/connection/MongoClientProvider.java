@@ -1,5 +1,7 @@
 package si.um.feri.praktikum.connection;
 
+import java.util.Arrays;
+
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
@@ -44,7 +46,7 @@ public class MongoClientProvider {
 		if (cs.getUserName() != null) {
 			MongoCredential mc = MongoCredential.createCredential(cs.getUserName(), MongoUtil.DATABASE,
 					cs.getPassword().toCharArray());
-			mongo = new MongoClient(sa, mc, options);
+			mongo = new MongoClient(sa, Arrays.asList(mc), options);
 		} else {
 			mongo = new MongoClient(sa, options);
 		}

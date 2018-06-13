@@ -22,6 +22,7 @@ public class Evidence implements Serializable {
 	private User user;
 
 	// PROCESSING
+	private String title;
 	private String processingPurpose;
 	private String descriptionCategoriesOfDataSubjectsTypesOfPersonalData;
 	private String categoriesOfUsersWhomPersonalDataDisclosed;
@@ -40,7 +41,7 @@ public class Evidence implements Serializable {
 	 * By default deletion date is 100 years from now.
 	 */
 	public Evidence() {
-		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), null);
+		this("","", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), null);
 	}
 
 	/**
@@ -49,11 +50,11 @@ public class Evidence implements Serializable {
 	 * @param primaryKey
 	 */
 	public Evidence(UUID primaryKey) {
-		this("", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), primaryKey);
+		this("","", "", "", "", "", "", "", undefinedDate(), "", Calendar.getInstance(), primaryKey);
 	}
 
 	/**
-	 * 
+	 * @param title
 	 * @param nameManager
 	 * @param emailManager
 	 * @param phoneNumberManager
@@ -66,11 +67,12 @@ public class Evidence implements Serializable {
 	 * @param lastSaved
 	 * @param primaryKey
 	 */
-	public Evidence(String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
+	public Evidence(String title,String nameManager, String emailManager, String phoneNumberManager, String processingPurpose,
 			String descriptionCategoriesOfDataSubjectsTypesOfPersonalData,
 			String categoriesOfUsersWhomPersonalDataDisclosed, String informationOnTransfersOfPersonalData,
 			Calendar dataDeletionDate, String generalDescriptionOfTechnicalSecurityMeasures, Calendar lastSaved,
 			UUID primaryKey) {
+		this.title = title;
 		this.nameManager = nameManager;
 		this.emailManager = emailManager;
 		this.phoneNumberManager = phoneNumberManager;
@@ -105,6 +107,22 @@ public class Evidence implements Serializable {
 	}
 
 	// GETTERS AND SETTERS
+	/**
+	 * 
+	 * @return title of record
+	 */
+	public String getTitle() {
+		return title;
+	}
+	/**
+	 * 
+	 * @param title
+	 * 			Sets name of the title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 	/**
 	 * @return Name of the manager.
 	 */

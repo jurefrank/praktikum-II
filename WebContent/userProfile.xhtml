@@ -17,6 +17,9 @@
 				<br />
 				<div>
 					<h:panelGroup rendered="#{not empty user}">
+
+						<h1>Welcome, #{user.firstName} </h1><h1> #{user.lastName}</h1>
+
 						<h1>Welcome, #{user.email}</h1>
 						<br />
 						<div align="center">
@@ -40,7 +43,7 @@
 							<div>
 								<h:form>
 									<h:commandButton styleClass="logout"
-										action="#{socialControler.logout}" value="Logout" />
+										action="#{loginControler.logout}" value="Logout" />
 								</h:form>
 							</div>
 						</div>

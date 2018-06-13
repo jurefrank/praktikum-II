@@ -18,8 +18,14 @@ import com.mongodb.client.MongoDatabase;
 import si.um.feri.praktikum.util.MongoUtil;
 
 @FacesValidator("emailExist")
+/**
+ * 
+ * EmailValidator is class which implements Validator and is used for validating 
+ * user input.
+ *
+ */
 public class EmailValidator implements Validator {
-
+	
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 

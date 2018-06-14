@@ -6,23 +6,63 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <head>
-<meta charset="UTF-8"/>
-<title> Details </title>
+<meta charset="UTF-8" />
+<title>Details</title>
 </head>
 <body>
-<ui:composition template="WEB-INF/shared/template.xhtml">
+	<ui:composition template="WEB-INF/shared/template.xhtml">
 		<ui:define name="content">
-		<div>
-		
-			
-					
-					<h:outputText value="#{recordBean.selectedEvidence.getTitle()}"></h:outputText>
-			
-		
-		
-		</div>
+			<div>
+
+
+				Title: 
+				<h:outputText value="#{recordBean.selectedEvidence.getTitle()}"></h:outputText>
+				<br />
+				Manager: 
+				<h:outputText value="#{recordBean.selectedEvidence.nameManager}"></h:outputText>
+				<br />
+				Email: 
+				<h:outputText value="#{recordBean.selectedEvidence.emailManager}"></h:outputText>
+				<br />
+				Phone: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.phoneNumberManager}"></h:outputText>
+				<br />
+				Processing purpose: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.processingPurpose}"></h:outputText>
+				<br />
+				Description categories: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"></h:outputText>
+				<br />
+				Categories of personal data: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.categoriesOfUsersWhomPersonalDataDisclosed}"></h:outputText>
+				<br />
+				Information on transfer data: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.informationOnTransfersOfPersonalData}"></h:outputText>
+				<br />
+				Deletion date: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.dataDeletionDate.time}"></h:outputText>
+				<br />
+				General description: 
+				<h:outputText
+					value="#{recordBean.selectedEvidence.generalDescriptionOfTechnicalSecurityMeasures}"></h:outputText>
+				<br /> 
+				Last saved: 
+				<h:outputText value="#{recordBean.selectedEvidence.lastSaved.time}"></h:outputText>
+				<br />
+				Version: 
+				<h:outputText value="#{recordBean.selectedEvidence.version}"></h:outputText>
+				<br />
+
+
+			</div>
 		</ui:define>
-		</ui:composition>
+	</ui:composition>
 
 </body>
 </html>

@@ -1,52 +1,87 @@
 package si.um.feri.praktikum.controler;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.FOUserAgent;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+
+
+import si.um.feri.praktikum.entity.Record;
 
 @ManagedBean(name="pdfController")
 @SessionScoped
 public class PDFController {
 	
+	 private static Font mainTitle = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, BaseColor.BLACK);
+	 private static Font tekstFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.BLACK);
+	 
 	
-	public void download() throws IOException, FOPException, TransformerException {
-		String fileName = "Verzija";
-	    FacesContext fc = FacesContext.getCurrentInstance();
-	    ExternalContext ec = fc.getExternalContext();
-
-	    ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
-	    ec.setResponseContentType("application/pdf");
-	    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\""); // Shrani z Pop-up window
-
-	    OutputStream output = ec.getResponseOutputStream();
-	    // Now you can write the InputStream of the file to the above OutputStream the usual way.
-	    // ...
-	    
-	  
-	  
-
-	    fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
+	public void createPDF(Record record) throws DocumentException, IOException {
+		
+		Document document = new Document();
+		String fileName = "Record" + record.getTitle()
+								   +"version"+ record.getVersion()
+								   + "data"+ ".pdf";
+		  FacesContext context = FacesContext.getCurrentInstance();
+	        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+	        response.setContentType("application/pdf");
+	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+	        context.responseComplete();
+	        PdfWriter.getInstance(document, response.getOutputStream());
+	        
+	        
+	        document.addAuthor("evidencaObdelave Services");
+	        document.addCreationDate();
+	        document.addTitle("Document with information about records and their data.");
+	        document.open();
+	        
+	        LineSeparator lineSeparator = new LineSeparator();
+	        lineSeparator.setOffset(-3);
+	        
+	        Paragraph mainTitle = new Paragraph(record.getTitle() + " " + "Version " + record.getVersion());
+	        mainTitle.setFont(PDFController.mainTitle);
+	        document.add(mainTitle);
+	        
+	        Paragraph recordKeeper = new Paragraph("Record keeper information ");
+	        	recordKeeper.add(lineSeparator);
+	        	Phrase phrase = new Phrase("Name:" + record.getNameManager() + "his contact data is : " 
+	        								+ record.getEmailManager() + "phone number " 
+	        								+ record.getPhoneNumberManager());
+	        	
+	        	
+	        document.add(recordKeeper);
+	        document.add(phrase);
+	        
+	        Paragraph storingData = new Paragraph("Storing data about");
+	        		storingData.add(lineSeparator);
+	        		
+	        Phrase phrase2 = new Phrase( "Categories: " + record.getCategoriesOfUsersWhomPersonalDataDisclosed());
+	        Phrase phrase3 = new Phrase("Which user data is being transfered: " + record.getInformationOnTransfersOfPersonalData());
+	        
+	        
+	        document.add(storingData);
+	        document.add(phrase2);
+	        document.add(phrase3);
+	        
+	        document.close();
+	        
+	        
+		
+		
+		
+		
 	}
-	
-	
 	
 
 }

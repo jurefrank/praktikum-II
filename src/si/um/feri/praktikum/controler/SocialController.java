@@ -25,6 +25,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 
+import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.LoggerUtil;
 import si.um.feri.praktikum.util.MongoConnectionUtil;
 import si.um.feri.praktikum.util.MongoUtil;
@@ -44,7 +45,7 @@ public class SocialController implements Serializable {
 	private static SocialAuthManager socialManager;
 
 	private Profile profile;
-	private final String mainURL = "http://obdelavaDejavnosti.si:8080/praktikum-II/faces/welcomePage.xhtml";
+	private final String mainURL = "http://obdelavaDejavnosti.si:8080/praktikum-II/faces/login.xhtml";
 	private final String redirectURL = "https://obdelavaDejavnosti.si:8443/praktikum-II/faces/redirect.xhtml";
 	private final String provider = "facebook";
 
@@ -52,6 +53,7 @@ public class SocialController implements Serializable {
 	 * Method for connection to Facebook
 	 */
 	public void connectToFacebook() {
+		
 		Properties prop = System.getProperties();
 		prop.put("graph.facebook.com.consumer_key", "227414197855638");
 		prop.put("graph.facebook.com.consumer_secret", "0cb6016366079a68428467f7c7696398");
@@ -63,6 +65,7 @@ public class SocialController implements Serializable {
 			socialManager.setSocialAuthConfig(socialConfig);
 			String URLReturn = socialManager.getAuthenticationUrl(provider, redirectURL);
 			FacesContext.getCurrentInstance().getExternalContext().redirect(URLReturn);
+			
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
@@ -74,6 +77,7 @@ public class SocialController implements Serializable {
 	 * @throws Exception
 	 */
 	public void getUserProfile() throws Exception {
+		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 		MongoClient mongoClient = MongoUtil.getMongoClient();
@@ -84,7 +88,7 @@ public class SocialController implements Serializable {
 			this.setProfile(provider.getUserProfile());
 
 			// checking if we have this user already in database
-			MongoCollection<Document> collection = MongoUtil.getUsersCollection();
+			MongoCollection<Document> collection = MongoUtil.getCustomCollection("socialUsers");
 			BasicDBObject searchMail = new BasicDBObject("email", profile.getEmail());
 			long counter = collection.count(searchMail);
 			if (counter > 0) {
@@ -97,10 +101,12 @@ public class SocialController implements Serializable {
 		// creating new collections of users that are using social login.
 		MongoCollection<Document> socialCollection = MongoUtil.getCustomCollection("socialUsers");
 		BasicDBObject document = new BasicDBObject();
+		User user = new User(profile.getEmail());
 		document.append("validatedId", profile.getValidatedId());
 		document.append("firstName", profile.getFirstName());
 		document.append("lastName", profile.getLastName());
 		document.append("email", profile.getEmail());
+		document.append("id", user.getId());
 		try {
 			// adding only social login users.
 			System.out.println("try: " + document);
@@ -110,7 +116,9 @@ public class SocialController implements Serializable {
 			mongoClient.close();
 
 		}
-
+		
+	
+		context.getExternalContext().getSessionMap().put("user",user);
 		FacesContext.getCurrentInstance().getExternalContext().redirect(mainURL);
 	}
 

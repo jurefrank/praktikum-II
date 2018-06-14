@@ -69,6 +69,13 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+	/**
+	 * 
+	 * @param email
+	 */
+	public User(String email) {
+		this.email = email;
+	}
 
 	// Generates id from input string and hashes it.
 	private String generateId(String input) {

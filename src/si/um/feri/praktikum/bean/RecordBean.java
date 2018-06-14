@@ -1,39 +1,29 @@
 package si.um.feri.praktikum.bean;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
-import org.apache.fop.apps.FOPException;
-import org.json.JSONObject;
-import org.xml.sax.SAXException;
-
-import com.google.gson.Gson;
-
-import si.um.feri.praktikum.PDF.JSONvXML;
-import si.um.feri.praktikum.PDF.XmlVPDF;
 import si.um.feri.praktikum.blockchain.Block;
 import si.um.feri.praktikum.blockchain.BlockStorage;
 import si.um.feri.praktikum.entity.Record;
+import si.um.feri.praktikum.entity.User;
 import si.um.feri.praktikum.util.BlockChainUtil;
 
 @SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
 public class RecordBean {
-
+	private User user;
 	private Record newEvidence = new Record();
 	private Record selectedEvidence = new Record();
+	private String isPrivate = "public";
+	
 	public static final int difficulty = 5;
 
 	public String addEvidence() {
@@ -82,6 +72,26 @@ public class RecordBean {
 		selectedEvidence = new Record();
 
 	}
+	
+	public void isUserKeyValid() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+		user = (User) sessionMap.get("user");
+		if(user.getId().equals(selectedEvidence.getUser().getId())) {
+			updateEvidence();
+		}
+
+	}
+	public String findSelectedEvidence() {
+		Record result = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
+		
+		
+		
+		
+		
+		return "details.xhtml";
+	}
+	
 
 
 	public List<Record> getAllPublicEvidences() {
@@ -129,5 +139,14 @@ public class RecordBean {
 	public void setSelectedEvidence(Record selectedEvidence) {
 		this.selectedEvidence = selectedEvidence;
 	}
+
+	public String getPrivate() {
+		return isPrivate;
+	}
+
+	public void setPrivate(String isPrivate) {
+		this.isPrivate = isPrivate;
+	}
+	
 
 }

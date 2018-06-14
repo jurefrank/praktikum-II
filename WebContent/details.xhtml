@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8"/>
+<title> Details </title>
 </head>
 <body>
+<ui:composition template="WEB-INF/shared/template.xhtml">
+		<ui:define name="content">
+		<div>
+		
+			
+					
+					<h:outputText value="#{recordBean.selectedEvidence.getTitle()}"></h:outputText>
+			
+		
+		
+		</div>
+		</ui:define>
+		</ui:composition>
 
 </body>
 </html>

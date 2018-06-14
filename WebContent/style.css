@@ -48,6 +48,7 @@ h2 {
 }
 
 input[type="text"], input[type="date"], input[type="password"] {
+	
 	display: block;
 	box-sizing: border-box;
 	margin-bottom: 20px;

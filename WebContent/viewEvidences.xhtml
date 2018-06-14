@@ -16,9 +16,9 @@
 		<ui:define name="content">
 			<h:panelGroup rendered="#{not empty user}">
 				<f:view>
-					<h1>List of blocks</h1>
+					<h1>List of Records</h1>
 					<div align="center">
-						<h:dataTable id="bloki" value="#{evidenceBean.blocks}" var="o">
+						<h:dataTable id="bloki" value="#{recordBean.blocks}" var="o">
 
 							<h:column>
 								<f:facet name="header">Title</f:facet>
@@ -43,7 +43,9 @@
 							<h:column>
 								<f:facet name="header"> Details </f:facet>
 								<h:form>
-								<h:commandLink value="Details"></h:commandLink>
+								<h:commandButton value="Details" actionListener ="#{recordBean.setSelectedEvidence(o.getData())}" action="#{recordBean.findSelectedEvidence}">
+								
+								</h:commandButton>
 								</h:form>
 							</h:column>
 						</h:dataTable>

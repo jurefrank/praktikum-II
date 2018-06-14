@@ -12,7 +12,7 @@ import si.um.feri.praktikum.util.BlockChainUtil;
  * to new GDPR law.
  *
  */
-public class Record implements Serializable {
+public class Record implements Serializable,Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	// MANAGER
@@ -331,6 +331,17 @@ public class Record implements Serializable {
 		return nameManager + ";" + emailManager + ";" + phoneNumberManager + ";" + processingPurpose + ";"
 				+ descriptionCategoriesOfDataSubjectsTypesOfPersonalData + ";"
 				+ categoriesOfUsersWhomPersonalDataDisclosed + ";" + informationOnTransfersOfPersonalData;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		try {
+			return super.clone();
+		}catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }

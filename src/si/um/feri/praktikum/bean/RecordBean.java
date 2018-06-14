@@ -24,6 +24,7 @@ public class RecordBean {
 	private Record newEvidence = new Record();
 	private Record selectedEvidence = new Record();
 	private String isPrivate = "public";
+	private Record cloned= new Record();
 
 	public static final int difficulty = 5;
 
@@ -87,18 +88,11 @@ public class RecordBean {
 	public String updateEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
 		Block prevBlock = blocks.get(blocks.size() - 1);
-		Record cloned = null;
-		try {
-			cloned = (Record) selectedEvidence.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		cloned.setVersion(cloned.getVersion() + 1);
 		blocks.add(new Block(prevBlock.getHash(), cloned));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		selectedEvidence = new Record();
 		cloned = null;
+		
 		return "viewEvidences.xhtml";
 	}
 
@@ -119,7 +113,12 @@ public class RecordBean {
 	}
 
 	public String findSelectedEvidence2Edit() {
-		selectedEvidence = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
+		try {
+			cloned = (Record) selectedEvidence.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "editForm.xhtml";
 	}
 
@@ -185,6 +184,14 @@ public class RecordBean {
 		System.out.println(user.getId());
 		System.out.println(privateChains.get(user.getId()).size());
 		return privateChains.get(user.getId());
+	}
+
+	public Record getCloned() {
+		return cloned;
+	}
+
+	public void setCloned(Record cloned) {
+		this.cloned = cloned;
 	}
 
 }

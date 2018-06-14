@@ -17,7 +17,7 @@
 			<h:panelGroup rendered="#{not empty user}">
 				<f:view>
 					<h1>List of Records</h1>
-					<div align="center">
+				
 						<h:dataTable id="bloki" value="#{recordBean.blocks}" var="o">
 
 							<h:column>
@@ -49,7 +49,7 @@
 								</h:form>
 							</h:column>
 						</h:dataTable>
-					</div>
+					
 				</f:view>
 			</h:panelGroup>
 		</ui:define>

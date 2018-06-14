@@ -12,7 +12,7 @@
 <body>
 	<ui:composition template="WEB-INF/shared/template.xhtml">
 		<ui:define name="content">
-			<div>
+			<div id="detail" align="center">
 				Title:
 				<h:outputText value="#{recordBean.selectedEvidence.getTitle()}"></h:outputText>
 				<br /> Manager:
@@ -45,10 +45,10 @@
 				<br /> Version:
 				<h:outputText value="#{recordBean.selectedEvidence.version}"></h:outputText>
 				<br />
-			</div>
 			<h:form>
-			<h:commandButton value="Update" action="#{recordBean.findSelectedEvidence2Edit()}"></h:commandButton>
-			</h:form>
+			<h:commandButton value="Update" action="#{recordBean.findSelectedEvidence2Edit()}" styleClass="update"></h:commandButton>
+					</h:form>
+					</div>
 		</ui:define>
 	</ui:composition>
 

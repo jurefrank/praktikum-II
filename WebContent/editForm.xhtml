@@ -12,7 +12,10 @@
 <body>
 	<ui:composition template="WEB-INF/shared/template.xhtml">
 		<ui:define name="content">
-			<f:view>
+		<div id="edit-box">
+		<f:view>
+					<div class="left">
+			
 				<h1>Edit Form</h1>
 				<div>
 					Title:
@@ -48,42 +51,47 @@
 					<h:outputText value="#{recordBean.selectedEvidence.version}"></h:outputText>
 					<br />
 				</div>
-
+				</div>
+				<div class="right">
 				<div>
 					<h:form>
-						<h:inputText value="#{recordBean.selectedEvidence.title}"
+						<h:inputText value="#{recordBean.cloned.title}"
 							p:placeholder="Title" />
-						<h:inputText value="#{recordBean.selectedEvidence.nameManager}"
+						<h:inputText value="#{recordBean.cloned.nameManager}"
 							p:placeholder="Manager" />
-						<h:inputText value="#{recordBean.selectedEvidence.emailManager}"
+						<h:inputText value="#{recordBean.cloned.emailManager}"
 							p:placeholder="Email" />
-						<h:inputText value="#{recordBean.selectedEvidence.phoneNumberManager}"
+						<h:inputText value="#{recordBean.cloned.phoneNumberManager}"
 							p:placeholder="Phone Number" />
-						<h:inputText value="#{recordBean.selectedEvidence.processingPurpose}"
+						<h:inputText value="#{recordBean.cloned.processingPurpose}"
 							p:placeholder="Processing purpose" />
 						<h:inputText
-							value="#{recordBean.selectedEvidence.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"
+							value="#{recordBean.cloned.descriptionCategoriesOfDataSubjectsTypesOfPersonalData}"
 							p:placeholder="Description Category" />
 						<h:inputText
-							value="#{recordBean.selectedEvidence.categoriesOfUsersWhomPersonalDataDisclosed}"
+							value="#{recordBean.cloned.categoriesOfUsersWhomPersonalDataDisclosed}"
 							p:placeholder="Categories" />
 						<h:inputText
-							value="#{recordBean.selectedEvidence.informationOnTransfersOfPersonalData}"
+							value="#{recordBean.cloned.informationOnTransfersOfPersonalData}"
 							p:placeholder="Phone Number" />
 						<input type="date"
-								jsf:value="#{recordBean.selectedEvidence.dataDeletionDate.time}"
+								jsf:value="#{recordBean.cloned.dataDeletionDate.time}"
 								p:placeholder="ExpirationDate">
 							<f:convertDateTime pattern="yyyy-MM-dd"></f:convertDateTime>
 							</input>
 						<h:inputText
-							value="#{recordBean.selectedEvidence.generalDescriptionOfTechnicalSecurityMeasures}"
+							value="#{recordBean.cloned.generalDescriptionOfTechnicalSecurityMeasures}"
 							p:placeholder="General Description" />
 						<h:commandButton value="Edit Evidence"
 							action="viewEvidences.xhtml"
 							actionListener="#{recordBean.updateEvidence()}"></h:commandButton>
 					</h:form>
 				</div>
+			
+				</div>
 			</f:view>
+				</div>
+			
 		</ui:define>
 	</ui:composition>
 </body>

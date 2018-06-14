@@ -1,6 +1,7 @@
 package si.um.feri.praktikum.bean;
 
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -23,17 +24,37 @@ public class RecordBean {
 	private Record newEvidence = new Record();
 	private Record selectedEvidence = new Record();
 	private String isPrivate = "public";
-	
+
 	public static final int difficulty = 5;
 
 	public String addEvidence() {
-		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
-		System.out.println(blocks.size());
-		Block prevBlock = blocks.get(blocks.size() - 1);
-		blocks.add(new Block(prevBlock.getHash(), newEvidence));
-		blocks.get(blocks.size() - 1).mineBlock(difficulty);
-		newEvidence = new Record();
-		return "viewEvidences.xhtml";
+		if (isPrivate.equals("public")) {
+			List<Block> blocks = BlockStorage.getInstance().getBlockchain();
+			System.out.println(blocks.size());
+			Block prevBlock = blocks.get(blocks.size() - 1);
+			blocks.add(new Block(prevBlock.getHash(), newEvidence));
+			blocks.get(blocks.size() - 1).mineBlock(difficulty);
+			newEvidence = new Record();
+			return "viewEvidences.xhtml";
+		} else {
+			// kdo je user
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			Map<String, Object> smap = ctx.getExternalContext().getSessionMap();
+			user = (User) smap.get("user");
+			HashMap<String, List<Block>> privateChains = BlockStorage.getInstance().getPrivateBlockchains();
+			List<Block> privateBlocks = privateChains.get(user.getId());
+			if (privateBlocks == null) {
+				privateBlocks = new ArrayList<>();
+				privateChains.put(user.getId(), privateBlocks);
+			}
+			if (privateBlocks.size() == 0)
+				privateBlocks.add(new Block("0", new Record()));
+			Block prevBlock = privateBlocks.get(privateBlocks.size() - 1);
+			privateBlocks.add(new Block(prevBlock.getHash(), newEvidence));
+			privateBlocks.get(privateBlocks.size() - 1).mineBlock(difficulty);
+			newEvidence = new Record();
+			return "viewPrivate.xhtml";
+		}
 	}
 
 	public static Boolean isChainValid() {
@@ -72,27 +93,22 @@ public class RecordBean {
 		selectedEvidence = new Record();
 
 	}
-	
+
 	public void isUserKeyValid() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
 		user = (User) sessionMap.get("user");
-		if(user.getId().equals(selectedEvidence.getUser().getId())) {
+		if (user.getId().equals(selectedEvidence.getUser().getId())) {
 			updateEvidence();
 		}
 
 	}
+
 	public String findSelectedEvidence() {
 		Record result = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
-		
-		
-		
-		
-		
+
 		return "details.xhtml";
 	}
-	
-
 
 	public List<Record> getAllPublicEvidences() {
 
@@ -147,6 +163,15 @@ public class RecordBean {
 	public void setPrivate(String isPrivate) {
 		this.isPrivate = isPrivate;
 	}
-	
+
+	public List<Block> getPrivateChain() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		Map<String, Object> smap = ctx.getExternalContext().getSessionMap();
+		user = (User) smap.get("user");
+		HashMap<String, List<Block>> privateChains = BlockStorage.getInstance().getPrivateBlockchains();
+		System.out.println(user.getId());
+		System.out.println(privateChains.get(user.getId()).size());
+		return privateChains.get(user.getId());
+	}
 
 }

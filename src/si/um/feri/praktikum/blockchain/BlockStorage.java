@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,6 +32,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	private List<Block> blockchain = new ArrayList<>();
 	private static BlockStorage INSTANCE = new BlockStorage();
 	private File blockchainFile = null;
+	private HashMap<String, List<Block>> privateBlockchains = new HashMap<>();
 
 	/**
 	 * Default constructor.
@@ -62,6 +65,11 @@ public class BlockStorage implements Serializable, ServletContextListener {
 			@SuppressWarnings("resource")
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(blockchainFile));
 			oos.writeObject(BlockStorage.getInstance().blockchain);
+			oos.close();
+			ObjectOutputStream oos1 = new ObjectOutputStream(
+					new FileOutputStream(Paths.get("blockchain.private").toFile()));
+			oos1.writeObject(BlockStorage.getInstance().privateBlockchains);
+			oos1.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,6 +111,17 @@ public class BlockStorage implements Serializable, ServletContextListener {
 		} else if (!blockchainFile.exists()) {
 			BlockStorage.getInstance().blockchain.add(new Block("0", new Record()));
 		}
+		File file = Paths.get("blockchain.private").toFile();
+		try {
+			file.createNewFile();
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+			BlockStorage.getInstance().privateBlockchains = (HashMap<String, List<Block>>) ois.readObject();
+			ois.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		LoggerUtil.init();
 		MongoConnectionUtil.getInstance();
 	}
@@ -123,5 +142,15 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	public void setBlockchain(List<Block> blockchain) {
 		this.blockchain = blockchain;
 	}
+
+	public HashMap<String, List<Block>> getPrivateBlockchains() {
+		return privateBlockchains;
+	}
+
+	public void setPrivateBlockchains(HashMap<String, List<Block>> privateBlockchains) {
+		this.privateBlockchains = privateBlockchains;
+	}
+	
+	
 
 }

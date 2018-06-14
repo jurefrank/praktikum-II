@@ -101,7 +101,7 @@ public class MongoClientProvider {
 
 			// mongo = new MongoClient(sa, options);
 			if (username != null && username.length() > 0) {
-				MongoCredential credential = MongoCredential.createCredential(username, "admin.system.users",
+				MongoCredential credential = MongoCredential.createCredential(username, "admin",
 						password.toCharArray());
 				mongo = new MongoClient(sa, credential, options);
 

@@ -84,14 +84,22 @@ public class RecordBean {
 		return true;
 	}
 
-	public void updateEvidence() {
+	public String updateEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
 		Block prevBlock = blocks.get(blocks.size() - 1);
-		selectedEvidence.increaseVersion(selectedEvidence.getVersion());
-		blocks.add(new Block(prevBlock.getHash(), selectedEvidence));
+		Record cloned = null;
+		try {
+			cloned = (Record) selectedEvidence.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cloned.setVersion(cloned.getVersion() + 1);
+		blocks.add(new Block(prevBlock.getHash(), cloned));
 		blocks.get(blocks.size() - 1).mineBlock(difficulty);
 		selectedEvidence = new Record();
-
+		cloned = null;
+		return "viewEvidences.xhtml";
 	}
 
 	public void isUserKeyValid() {
@@ -108,6 +116,11 @@ public class RecordBean {
 		Record result = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
 
 		return "details.xhtml";
+	}
+
+	public String findSelectedEvidence2Edit() {
+		selectedEvidence = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
+		return "editForm.xhtml";
 	}
 
 	public List<Record> getAllPublicEvidences() {

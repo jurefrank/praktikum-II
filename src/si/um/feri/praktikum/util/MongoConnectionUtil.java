@@ -32,7 +32,7 @@ public class MongoConnectionUtil {
 		File file = new File("host");
 		System.out.println(file.getAbsolutePath());
 		if (!file.exists() && !file.isDirectory()) {
-			System.out.println("SEM TUKAJ");
+		
 			try {
 				file.createNewFile();
 				throw new IllegalArgumentException("Exception was thrown because host "

@@ -85,6 +85,21 @@ public class RecordBean {
 		return true;
 	}
 
+	public String updatePrivateEvidence() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, Object> smap = context.getExternalContext().getSessionMap();
+		user = (User) smap.get("user");
+		HashMap<String, List<Block>> privateChains = BlockStorage.getInstance().getPrivateBlockchains();
+		List<Block> privateBlocks = privateChains.get(user.getId());
+		Block prevBlock =privateBlocks.get(privateBlocks.size() - 1);
+		cloned.setVersion(cloned.getVersion() + 1);
+		privateBlocks.add(new Block(prevBlock.getHash(), cloned));
+		privateBlocks.get(privateBlocks.size() - 1).mineBlock(difficulty);
+		cloned = null;
+		
+		
+		return "viewPrivate.xhtml";
+	}
 	public String updateEvidence() {
 		List<Block> blocks = BlockStorage.getInstance().getBlockchain();
 		Block prevBlock = blocks.get(blocks.size() - 1);
@@ -111,6 +126,12 @@ public class RecordBean {
 
 		return "details.xhtml";
 	}
+	
+	public String findSelectedEvidencePrivate() {
+		Record result = BlockChainUtil.getEvidence(selectedEvidence.getPrimaryKey());
+
+		return "privateDetails.xhtml";
+	}
 
 	public String findSelectedEvidence2Edit() {
 		try {
@@ -120,6 +141,15 @@ public class RecordBean {
 			e.printStackTrace();
 		}
 		return "editForm.xhtml";
+	}
+	public String findSelectedEvidence2EditPrivate() {
+		try {
+			cloned = (Record) selectedEvidence.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "privateEditForm.xhtml";
 	}
 
 	public List<Record> getAllPublicEvidences() {

@@ -99,6 +99,7 @@ public class BlockStorage implements Serializable, ServletContextListener {
 			try {
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(blockchainFile));
 				BlockStorage.getInstance().blockchain = (List<Block>) ois.readObject();
+				
 				ois.close();
 				if (BlockStorage.getInstance().blockchain.size() == 0)
 					BlockStorage.getInstance().blockchain.add(new Block("0", new Record()));
@@ -114,9 +115,9 @@ public class BlockStorage implements Serializable, ServletContextListener {
 		File file = Paths.get("blockchain.private").toFile();
 		try {
 			file.createNewFile();
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-			BlockStorage.getInstance().privateBlockchains = (HashMap<String, List<Block>>) ois.readObject();
-			ois.close();
+			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(file));
+			BlockStorage.getInstance().privateBlockchains = (HashMap<String, List<Block>>) ois1.readObject();
+			ois1.close();
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -150,7 +151,5 @@ public class BlockStorage implements Serializable, ServletContextListener {
 	public void setPrivateBlockchains(HashMap<String, List<Block>> privateBlockchains) {
 		this.privateBlockchains = privateBlockchains;
 	}
-	
-	
 
 }

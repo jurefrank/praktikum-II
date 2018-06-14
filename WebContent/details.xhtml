@@ -46,7 +46,8 @@
 				<h:outputText value="#{recordBean.selectedEvidence.version}"></h:outputText>
 				<br />
 			<h:form>
-			<h:commandButton value="Update" action="#{recordBean.findSelectedEvidence2Edit()}" styleClass="update"></h:commandButton>
+			<h:commandButton value="Update" action="#{recordBean.findSelectedEvidence2Edit()}" styleClass="update"></h:commandButton><br/>
+			<h:commandButton ajax="false" value="Download PDF" action="#{pdfController.createPDF(recordBean.selectedEvidence)}" styleClass="create"></h:commandButton>
 					</h:form>
 					</div>
 		</ui:define>
